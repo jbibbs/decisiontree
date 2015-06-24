@@ -98,13 +98,42 @@ class SurveyController extends BaseController {
 
 
 
-	// Main logic is here. Determines where to go next based on track and question number.
+	// Main logic is here. Determines where to go next based on track and question number
 	 public function process(){
-		$q = Input::get('q');
+	 	// Error handler. Do not proceed if you cannot retrieve the question number
+		if (Input::has('q')){
+			$q = Input::get('q');
+		}
+		else {
+			return View::make('results', array(
+					'heading' => 'We\'re sorry. Something has gone wrong.',
+					'results' => 'Unable to identify the question you responded to. Please start the survey over or contact support.'
+			));
+		}
+
+		// Get the current track from session or assign a default
+		if (Session::has('track')){
+			$track = Session::get('track');
+		}
+		else {
+			$track = 'track0';
+		}
+
 		switch ($q){
+			// Handles the unique first case where user submits their name
 			case 'name':
+				if(Input::has('name')){
+					$name = Input::get('name');
+				}
+				else {
+					$name = 'anonymous';
+				}
+				Session::put('name', $name);
 				return Redirect::to('question1');
+
+			// All the "q" cases handle the answer submissions
 			case 'q1':
+				Log::info("The current track is: $track");
 				return Redirect::to('question2');
 			case 'q2':
 				return Redirect::to('question3');
@@ -119,7 +148,6 @@ class SurveyController extends BaseController {
 			case 'q7':
 				return Redirect::to('results');
 		}
-		return View::make('summary', array('summary' => 'Hella nice job!'));
 	}
 
 }
