@@ -2,112 +2,124 @@
 
 class SurveyController extends BaseController {
 
-	/*
-	|--------------------------------------------------------------------------
-	| Default Home Controller
-	|--------------------------------------------------------------------------
-	|
-	| You may wish to use controllers instead of, or in addition to, Closure
-	| based routes. That's great! Here is an example controller method to
-	| get you started. To route to this controller, just add the route:
-	|
-	|	Route::get('/', 'HomeController@showWelcome');
-	|
-	*/
+	
+	// Question List
+	public static $questions = array(
+		'name'		=> "Please enter your name:",
+		'q1' 		=> "Is high quality important here or is a good solution absolutely critical? 
+						(is this a case where it would not be acceptable having lots of equal alternatives?)",
+		'q2'		=> "Is team commitment important to the decision?",
+		'q3'		=> "Do you have enough information of your own to make a good decision?",
+		'q4'		=> "Is the problem structured in such a way that it is clearly defined & organized with potential 
+								solutions identified?",
+		'q5'		=> "If you make this decision yourself, are you sure the group will accept and support it?",
+		'q6'		=> "Does the team have the same organizational goals?",
+		'q7'		=> "Is conflict amongst the team over the decision likely?"
+	);
 
 
 	public function getName(){
 
 		return View::make('survey')->nest('form', 'form2', array(
-			'question' 	=> parent::$questions['name'], 
-			'url' 		=> 'name'
+			'question' 	=> self::$questions['name'], 
+			'q'			=> 'name',
+			'url' 		=> 'process'
 		));
 	}
 
-	public function postName(){
-		if (Input::has('name')){
-			$name = Input::get('name');
-		}
-		else {
-			$name = 'Anonymous';
-		}
-		Session::put('name', $name);
-		return Redirect::to('track1');
-	}
-
-	public function process(){
-		$q = Input::get('q');
-		$track = Input::get('track');
-		$answer = Input::get('answer');
-
-		switch ($track){
-			case '1':
-				if($answer === 'yes'){
-
-				}
-				elseif($answer === 'no'){
-
-				}
-				else {
-
-				}
-			case '2':
-				if($answer === 'yes'){
-
-				}
-				elseif($answer === 'no'){
-
-				}
-				else {
-					
-				}
-			case '3':
-				if($answer === 'yes'){
-
-				}
-				elseif($answer === 'no'){
-
-				}
-				else {
-					
-				}
-			case '4':
-			case '5':
-			case '6':
-			case '7':
-			case '8':
-			case '9':
-			case '10':
-			case '11':
-			case '12':
-			case '13':
-			case '14':
-		}
-
-		Session::put('q', $q);
-		Session::put('track', $track);
-		return View::make('summary', array('summary' => 'Hella nice job!'));
-	}
-
-	
-	// All yeses
-	public function track1(){
+	public function getQ1(){
 		return View::make('survey')->nest('form', 'form1', 
 			array(
-				'question' 	=> parent::$questions['q1'],
+				'question' 	=> self::$questions['q1'],
 				'q' 		=> 'q1',
 				'url' 		=> 'process',
-				'track' 	=> '1' 
+			));
+	}
+	public function getQ2(){
+		return View::make('survey')->nest('form', 'form1', 
+			array(
+				'question' 	=> self::$questions['q2'],
+				'q' 		=> 'q2',
+				'url' 		=> 'process',
 			));
 	}
 
-	// All nos
-	public function track2(){
-		return View::make('survey', array('question' => parent::$questions['q2']));
+	public function getQ3(){
+		return View::make('survey')->nest('form', 'form1', 
+			array(
+				'question' 	=> self::$questions['q3'],
+				'q' 		=> 'q3',
+				'url' 		=> 'process',
+			));
 	}
 
-	public function track3(){
-		return View::make('survey', array('question' => parent::$questions['q3']));
+	public function getQ4(){
+		return View::make('survey')->nest('form', 'form1', 
+			array(
+				'question' 	=> self::$questions['q4'],
+				'q' 		=> 'q4',
+				'url' 		=> 'process',
+			));
+	}
+
+	public function getQ5(){
+		return View::make('survey')->nest('form', 'form1', 
+			array(
+				'question' 	=> self::$questions['q5'],
+				'q' 		=> 'q5',
+				'url' 		=> 'process',
+			));
+	}
+
+	public function getQ6(){
+		return View::make('survey')->nest('form', 'form1', 
+			array(
+				'question' 	=> self::$questions['q6'],
+				'q' 		=> 'q6',
+				'url' 		=> 'process',
+			));
+	}
+
+	public function getQ7(){
+		return View::make('survey')->nest('form', 'form1', 
+			array(
+				'question' 	=> self::$questions['q7'],
+				'q' 		=> 'q7',
+				'url' 		=> 'process',
+			));
+	}
+
+	public function getResults(){
+		return View::make('results', array(
+				'heading' =>  'Here are your results:', 
+				'results' =>  'No results at this time'
+		));
+	}
+
+
+
+	// Main logic is here. Determines where to go next based on track and question number.
+	 public function process(){
+		$q = Input::get('q');
+		switch ($q){
+			case 'name':
+				return Redirect::to('question1');
+			case 'q1':
+				return Redirect::to('question2');
+			case 'q2':
+				return Redirect::to('question3');
+			case 'q3':
+				return Redirect::to('question4');
+			case 'q4':
+				return Redirect::to('question5');
+			case 'q5':
+				return Redirect::to('question6');
+			case 'q6':
+				return Redirect::to('question7');
+			case 'q7':
+				return Redirect::to('results');
+		}
+		return View::make('summary', array('summary' => 'Hella nice job!'));
 	}
 
 }

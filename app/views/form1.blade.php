@@ -6,7 +6,6 @@
 		{{ Form::label('no', 'No'); }}
 		{{ Form::radio('answer', 'no', array('id' => 'no')); }}
 		{{ Form::hidden('q', $q); }}
-		{{ Form::hidden('track', $track); }}
 		{{ Form::submit('Next'); }}
 	{{ Form::close() }}
 </div>
