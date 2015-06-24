@@ -17,6 +17,20 @@ class SurveyController extends BaseController {
 		'q7'		=> "Is conflict amongst the team over the decision likely?"
 	);
 
+	public static $outcomes = array(
+		'a1' => 'Autocratic 1 (A1) - You, the decision maker, use the information available to make the decision yourself.'
+		'a2' => 'Autocratic 2 (A2) - You request information from members of your team. They may or may not know why 
+					you want such information. They neither define the situation, alternatives or final choice.'
+		'c1' => 'Consultative 1 (C1) - You explain the situation to the individual members of the group but they do not
+					get together as a group. You make the final decision.'
+		'c2' => 'Consultative 2 (C2) - There is group discussion where you explain the situation and gather ideas and
+					suggestions. Again, you\'re responsible for the final decision making.'
+		'g2' => 'Group 2 (G2) - The group as a whole make the decision. You as the leader present the situation and the
+					group defines alternatives and reaches a consensus decision. The leader acts more as a facilitator in this
+					process and allows the group to agree on the final choice.'
+
+		);
+
 
 	public function getName(){
 
@@ -105,10 +119,18 @@ class SurveyController extends BaseController {
 			$q = Input::get('q');
 		}
 		else {
+			Log::error('Unable to retrieve referenced (q)uestion')
 			return View::make('results', array(
 					'heading' => 'We\'re sorry. Something has gone wrong.',
 					'results' => 'Unable to identify the question you responded to. Please start the survey over or contact support.'
 			));
+		}
+
+		if (Input::has('answer')){
+			$answer = Input::get('answer');
+		}
+		else {
+			$answer = NULL;
 		}
 
 		// Get the current track from session or assign a default
@@ -133,7 +155,7 @@ class SurveyController extends BaseController {
 
 			// All the "q" cases handle the answer submissions
 			case 'q1':
-				Log::info("The current track is: $track");
+				$step = $this->get_next_step($q, $answer, $track);
 				return Redirect::to('question2');
 			case 'q2':
 				return Redirect::to('question3');
@@ -150,4 +172,117 @@ class SurveyController extends BaseController {
 		}
 	}
 
+	protected function get_next_step($question, $answer, $track){
+			switch ($track){
+				case 'track1':
+					if( $question === 'q1'){
+						if ($answer === 'yes'){
+							Session::set('track', 'track1');
+							return('question2')
+						}
+						elseif ($answer === 'no'){
+							Session::set('track', 'track2');
+							return('question2');
+						}
+						else {
+							Log::error('Answer was not provided or undefined.');
+						}
+					}
+					if( $question === 'q2'){
+						if ($answer === 'yes'){
+							Session::set('track', 'track1');
+							return('question3');
+						}
+						elseif ($answer === 'no'){
+							Session::set('track', 'track7');
+							return('question3');
+						}
+						else {
+							Log::error('Answer was not provided or undefined.');
+						}
+					}
+					if( $question === 'q3'){
+						if ($answer === 'yes'){
+							Session::set('track', 'track1');
+							return('question5');
+						}
+						elseif ($answer === 'no'){
+							Session::set('track', 'track4');
+							return('question5');
+						}
+						else {
+							Log::error('Answer was not provided or undefined.');
+						}
+					}
+					if( $question === 'q4'){
+							Log::error('Question 4 should not appear as part of track 1');
+						}
+					}
+					if( $question === 'q5'){
+						if ($answer === 'yes'){
+							// How the fuck do I provide the outcome?
+						}
+						elseif ($answer === 'no'){
+							// Do something else
+						}
+						else {
+							// Default
+						}
+					}
+					if( $question === 'q6'){
+						if ($answer === 'yes'){
+							// Do something
+						}
+						elseif ($answer === 'no'){
+							// Do something else
+						}
+						else {
+							// Default
+						}
+					}
+					if( $question === 'q7'){
+						if ($answer === 'yes'){
+							// Do something
+						}
+						elseif ($answer === 'no'){
+							// Do something else
+						}
+						else {
+							// Default
+						}
+					}
+				case 'track2':
+				case 'track3':
+				case 'track4':
+				case 'track5':
+				case 'track6':
+				case 'track7':
+				case 'track8':
+				case 'track9':
+				case 'track10':
+				case 'track11':
+				case 'track12':
+				case 'track13':
+				case 'track14':
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+			}
+	}
 }
