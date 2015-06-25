@@ -144,6 +144,8 @@ class SurveyController extends BaseController {
 
 		switch ($q){
 			// Handles the unique first case where user submits their name
+
+			// BUG here it's always using this case because name is set in session permanently
 			case 'name':
 				if(Input::has('name')){
 					$name = Input::get('name');
