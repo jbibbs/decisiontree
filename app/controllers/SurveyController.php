@@ -220,7 +220,10 @@ class SurveyController extends BaseController {
 					}
 					if( $question === 'q5'){
 						if ($answer === 'yes'){
-							// How the fuck do I provide the outcome?
+							return Redirect::route('results', array(
+								'heading' => 'Thank you. Here are your results:', 
+								'results' => $this->outcomes['a2']
+							));
 						}
 						elseif ($answer === 'no'){
 							// Do something else
