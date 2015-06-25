@@ -29,7 +29,7 @@ class SurveyController extends BaseController {
 					group defines alternatives and reaches a consensus decision. The leader acts more as a facilitator in this
 					process and allows the group to agree on the final choice.'
 
-		);
+	);
 
 
 	public function getName(){
