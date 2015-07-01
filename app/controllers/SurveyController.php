@@ -113,9 +113,11 @@ class SurveyController extends BaseController {
 	}
 
 	public function getResults(){
+		$heading = Route::input('heading');
+		$results = Route::input('results');
 		return View::make('results', array(
-				'heading' =>  'Here are your results:', 
-				'results' =>  'No results at this time'
+				'heading' =>  $heading,
+				'results' =>  $results
 		));
 	}
 
@@ -152,6 +154,8 @@ class SurveyController extends BaseController {
 
 		switch ($q){
 			// Handles the unique first case where user submits their name
+
+			// BUG here it's always using this case because name is set in session permanently
 			case 'name':
 				if(Input::has('name')){
 					$name = Input::get('name');
@@ -164,20 +168,33 @@ class SurveyController extends BaseController {
 
 			// All the "q" cases handle the answer submissions
 			case 'q1':
+				Session::put('answer1', $answer);
 				$step = $this->get_next_step($q, $answer, $track);
-				return Redirect::to('question2');
+				return Redirect::to($step);
 			case 'q2':
-				return Redirect::to('question3');
+				Session::put('answer2', $answer);
+				$step = $this->get_next_step($q, $answer, $track);
+				return Redirect::to($step);
 			case 'q3':
-				return Redirect::to('question4');
+				Session::put('answer3', $answer);
+				$step = $this->get_next_step($q, $answer, $track);
+				return Redirect::to($step);
 			case 'q4':
-				return Redirect::to('question5');
+				Session::put('answer4', $answer);
+				$step = $this->get_next_step($q, $answer, $track);
+				return Redirect::to($step);
 			case 'q5':
-				return Redirect::to('question6');
+				Session::put('answer5', $answer);
+				$step = $this->get_next_step($q, $answer, $track);
+				return Redirect::to($step);
 			case 'q6':
-				return Redirect::to('question7');
+				Session::put('answer6', $answer);
+				$step = $this->get_next_step($q, $answer, $track);
+				return Redirect::to($step);
 			case 'q7':
-				return Redirect::to('results');
+				Session::put('answer7', $answer);
+				$step = $this->get_next_step($q, $answer, $track);
+				return Redirect::to($step);
 		}
 	}
 
@@ -186,11 +203,11 @@ class SurveyController extends BaseController {
 				case 'track1':
 					if( $question === 'q1'){
 						if ($answer === 'yes'){
-							Session::set('track', 'track1');
+							Session::put('track', 'track1');
 							return('question2');
 						}
 						elseif ($answer === 'no'){
-							Session::set('track', 'track2');
+							Session::put('track', 'track2');
 							return('question2');
 						}
 						else {
@@ -199,11 +216,11 @@ class SurveyController extends BaseController {
 					}
 					if( $question === 'q2'){
 						if ($answer === 'yes'){
-							Session::set('track', 'track1');
+							Session::put('track', 'track1');
 							return('question3');
 						}
 						elseif ($answer === 'no'){
-							Session::set('track', 'track7');
+							Session::put('track', 'track7');
 							return('question3');
 						}
 						else {
@@ -212,11 +229,11 @@ class SurveyController extends BaseController {
 					}
 					if( $question === 'q3'){
 						if ($answer === 'yes'){
-							Session::set('track', 'track1');
+							Session::put('track', 'track1');
 							return('question5');
 						}
 						elseif ($answer === 'no'){
-							Session::set('track', 'track4');
+							Session::put('track', 'track4');
 							return('question5');
 						}
 						else {
@@ -241,27 +258,6 @@ class SurveyController extends BaseController {
 							// Default
 						}
 					}
-					if( $question === 'q6'){
-						if ($answer === 'yes'){
-							// Do something
-						}
-						elseif ($answer === 'no'){
-							// Do something else
-						}
-						else {
-							// Default
-						}
-					}
-					if( $question === 'q7'){
-						if ($answer === 'yes'){
-							// Do something
-						}
-						elseif ($answer === 'no'){
-							// Do something else
-						}
-						else {
-							// Default
-						}
 			
 				/*case 'track2':
 				case 'track3':
@@ -278,5 +274,4 @@ class SurveyController extends BaseController {
 				case 'track14':*/
 			}
 
-		}	
-}
+}	
