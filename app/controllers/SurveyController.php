@@ -3,6 +3,16 @@
 class SurveyController extends BaseController {
 
 	
+	/*
+	Ok one note here from 6/30/15. A "track" is not yet defined. What makes a track a track?
+	It's possible that tracks should be their own class and have their own definition.
+
+	You may want your code that accepts the form submission to check the track definition to 
+	ask whether we currently fit the criteria for being on this track. If so, we may get one response, 
+	and if not, we get another.
+	*/
+
+
 	// Question List
 	public static $questions = array(
 		'name'		=> "Please enter your name:",
