@@ -2,17 +2,6 @@
 
 class SurveyController extends BaseController {
 
-	
-	/*
-	Ok one note here from 6/30/15. A "track" is not yet defined. What makes a track a track?
-	It's possible that tracks should be their own class and have their own definition.
-
-	You may want your code that accepts the form submission to check the track definition to 
-	ask whether we currently fit the criteria for being on this track. If so, we may get one response, 
-	and if not, we get another.
-	*/
-
-
 	// Question List
 	public static $questions = array(
 		'name'		=> "Please enter your name:",
@@ -113,11 +102,12 @@ class SurveyController extends BaseController {
 	}
 
 	public function getResults(){
-		$heading = Route::input('heading');
-		$results = Route::input('results');
+        $outcome = Route::input('outcome');
+        $responses = get_clean_responses(Session::all());
 		return View::make('results', array(
-				'heading' =>  $heading,
-				'results' =>  $results
+				'heading' =>  'Thank you! Your outcome is provided below',
+				'outcome' =>  self::$outcomes[$outcome],
+                'responses' => $responses
 		));
 	}
 
@@ -136,7 +126,8 @@ class SurveyController extends BaseController {
 					'results' => 'Unable to identify the question you responded to. Please start the survey over or contact support.'
 			));
 		}
-
+         
+         // Get the user response or assign to NULL
 		if (Input::has('answer')){
 			$answer = Input::get('answer');
 		}
@@ -149,22 +140,19 @@ class SurveyController extends BaseController {
 			$track = Session::get('track');
 		}
 		else {
-			$track = 'track0';
+			$track = 'track1';
 		}
-
+         
+         // q variable is the string name of the submitted question passed by a hidden field
 		switch ($q){
 			// Handles the unique first case where user submits their name
-
-			// BUG here it's always using this case because name is set in session permanently
 			case 'name':
 				if(Input::has('name')){
 					$name = Input::get('name');
+                    Session::put('name', $name);
+				    return Redirect::to('question1');
 				}
-				else {
-					$name = 'anonymous';
-				}
-				Session::put('name', $name);
-				return Redirect::to('question1');
+				break;
 
 			// All the "q" cases handle the answer submissions
 			case 'q1':
@@ -199,7 +187,7 @@ class SurveyController extends BaseController {
 	}
 
 	protected function get_next_step($question, $answer, $track){
-			switch ($track){
+			switch ($track){   
 				case 'track1':
 					if( $question === 'q1'){
 						if ($answer === 'yes'){
@@ -246,10 +234,7 @@ class SurveyController extends BaseController {
 					}
 					if( $question === 'q5'){
 						if ($answer === 'yes'){
-							return Redirect::route('results', array(
-								'heading' => 'Thank you. Here are your results:', 
-								'results' => $this->outcomes['a2']
-							));
+							return 'results/a2';
 						}
 						elseif ($answer === 'no'){
 							// Do something else

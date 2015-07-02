@@ -7,7 +7,11 @@
 <body>
 	<div class="results">
 		<h2>{{ $heading }}</h2>
-		<p>{{ $results }}</p>
+		<p>{{ $outcome }}</p>
+        <h3>Your responses:</h3>
+        @foreach($responses as $response)
+            <p>{{ print_r($response) }}</p>
+        @endforeach
 	</div>
 </body>
 </html>

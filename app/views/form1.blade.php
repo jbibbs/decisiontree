@@ -2,9 +2,9 @@
 <div>
 	{{ Form::open(array('url' => $url)) }}
 		{{ Form::label('yes', 'Yes'); }}
-		{{ Form::radio('answer', 'yes', array('id' => 'yes')); }}
+		{{ Form::radio('answer', 'yes', true); }}
 		{{ Form::label('no', 'No'); }}
-		{{ Form::radio('answer', 'no', array('id' => 'no')); }}
+		{{ Form::radio('answer', 'no'); }}
 		{{ Form::hidden('q', $q); }}
 		{{ Form::submit('Next'); }}
 	{{ Form::close() }}
