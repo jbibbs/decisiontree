@@ -21,7 +21,7 @@ Route::get('question4', 'SurveyController@getQ4');
 Route::get('question5', 'SurveyController@getQ5');
 Route::get('question6', 'SurveyController@getQ6');
 Route::get('question7', 'SurveyController@getQ7');
-Route::get('results/{outcome}', array('as' => 'results', 'uses' => 'SurveyController@getResults'));
+Route::get('results/track/{id}', array('as' => 'results', 'uses' => 'ResultsController@get_results'));
 
 Route::post('process', 'SurveyController@process');
 Route::get('track1', 'SurveyController@track1');

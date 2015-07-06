@@ -16,19 +16,6 @@ class SurveyController extends BaseController {
 		'q7'		=> "Is conflict amongst the team over the decision likely?"
 	);
 
-	public static $outcomes = array(
-		'a1' => 'Autocratic 1 (A1) - You, the decision maker, use the information available to make the decision yourself.',
-		'a2' => 'Autocratic 2 (A2) - You request information from members of your team. They may or may not know why 
-					you want such information. They neither define the situation, alternatives or final choice.',
-		'c1' => 'Consultative 1 (C1) - You explain the situation to the individual members of the group but they do not
-					get together as a group. You make the final decision.',
-		'c2' => 'Consultative 2 (C2) - There is group discussion where you explain the situation and gather ideas and
-					suggestions. Again, you\'re responsible for the final decision making.',
-		'g2' => 'Group 2 (G2) - The group as a whole make the decision. You as the leader present the situation and the
-					group defines alternatives and reaches a consensus decision. The leader acts more as a facilitator in this
-					process and allows the group to agree on the final choice.'
-	);
-
 
 	public function getName(){
 
@@ -101,16 +88,6 @@ class SurveyController extends BaseController {
 			));
 	}
 
-	public function getResults(){
-        $outcome = Route::input('outcome');
-        $responses = get_clean_responses(Session::all());
-		return View::make('results', array(
-				'heading' =>  'Thank you! Your outcome is provided below',
-				'outcome' =>  self::$outcomes[$outcome],
-                'responses' => $responses
-		));
-	}
-
 
 
 	// Main logic is here. Determines where to go next based on track and question number
@@ -140,7 +117,7 @@ class SurveyController extends BaseController {
 			$track = Session::get('track');
 		}
 		else {
-			$track = 'track1';
+			$track = '1';
 		}
          
          // q variable is the string name of the submitted question passed by a hidden field
@@ -188,14 +165,14 @@ class SurveyController extends BaseController {
 
 	protected function get_next_step($question, $answer, $track){
 			switch ($track){   
-				case 'track1':
+				case '1':
 					if( $question === 'q1'){
 						if ($answer === 'yes'){
-							Session::put('track', 'track1');
+							Session::put('track', '1');
 							return('question2');
 						}
 						elseif ($answer === 'no'){
-							Session::put('track', 'track2');
+							Session::put('track', '2');
 							return('question2');
 						}
 						else {
@@ -204,11 +181,11 @@ class SurveyController extends BaseController {
 					}
 					if( $question === 'q2'){
 						if ($answer === 'yes'){
-							Session::put('track', 'track1');
+							Session::put('track', '1');
 							return('question3');
 						}
 						elseif ($answer === 'no'){
-							Session::put('track', 'track7');
+							Session::put('track', '7');
 							return('question3');
 						}
 						else {
@@ -217,11 +194,11 @@ class SurveyController extends BaseController {
 					}
 					if( $question === 'q3'){
 						if ($answer === 'yes'){
-							Session::put('track', 'track1');
+							Session::put('track', '1');
 							return('question5');
 						}
 						elseif ($answer === 'no'){
-							Session::put('track', 'track4');
+							Session::put('track', '4');
 							return('question5');
 						}
 						else {
@@ -234,7 +211,7 @@ class SurveyController extends BaseController {
 					}
 					if( $question === 'q5'){
 						if ($answer === 'yes'){
-							return 'results/a2';
+							return 'results/track/1';
 						}
 						elseif ($answer === 'no'){
 							// Do something else

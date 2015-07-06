@@ -17,7 +17,22 @@ class ResultsController extends BaseController {
 	);
 
 
+	public function get_results(){
+		$track = Route::input('id');
+		$responses = Session::all();
 
+		switch($track){
+			case '1': $outcome = 'a2';
+			case '2': $outcome = 'a1';
+		}
+
+		Session::flush();
+		return View::make('results', array(
+				'heading' =>  'Thank you! Your outcome is provided below',
+				'outcome' =>  self::$outcomes[$outcome],
+                'responses' => $responses
+               ));
+	}
 
 
 }
