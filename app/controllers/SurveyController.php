@@ -167,54 +167,58 @@ class SurveyController extends BaseController {
 	// Somehow I was being presented with question 1, but the system was trying to save
 	// the answer as for question 5. Need to button up how questions/answers are being saved in 
 	// session to make sure questions answers have an iron tight relationship.
-	
+
 	protected function get_next_step($question, $answer, $track){
 			switch ($track){   
 				case '1':
-					if( $question === 'q1'){
+					if($question === 'q1'){
 						if ($answer === 'yes'){
 							Session::put('track', '1');
-							return('question2');
+							return 'question2';
 						}
 						elseif ($answer === 'no'){
 							Session::put('track', '2');
-							return('question2');
+							return 'question2';
 						}
 						else {
 							Log::error('Answer was not provided or undefined.');
+							return 'error';
 						}
 					}
-					if( $question === 'q2'){
+					if($question === 'q2'){
 						if ($answer === 'yes'){
 							Session::put('track', '1');
-							return('question3');
+							return 'question3';
 						}
 						elseif ($answer === 'no'){
 							Session::put('track', '7');
-							return('question3');
+							return 'question3';
 						}
 						else {
 							Log::error('Answer was not provided or undefined.');
+							return 'error';
 						}
 					}
-					if( $question === 'q3'){
+					if($question === 'q3'){
 						if ($answer === 'yes'){
 							Session::put('track', '1');
-							return('question5');
+							return 'question5';
 						}
 						elseif ($answer === 'no'){
 							Session::put('track', '4');
-							return('question5');
+							return 'question5';
 						}
 						else {
 							Log::error('Answer was not provided or undefined.');
+							return 'error';
 						}
 					}
-					if( $question === 'q4'){
+					if($question === 'q4'){
 							Log::error('Question 4 should not appear as part of track 1');
+							return 'error';
 						}
 					}
-					if( $question === 'q5'){
+					if($question === 'q5'){
 						if ($answer === 'yes'){
 							return 'results/track/1';
 						}
@@ -224,23 +228,135 @@ class SurveyController extends BaseController {
 							return 'error';
 						}
 						else {
-							// Default
+							Log::error('Answer was not provided or undefined.');
+							return 'error';
 						}
 					}
-			/*
-				case 'track2':
-				case 'track3':
-				case 'track4':
-				case 'track5':
-				case 'track6':
-				case 'track7':
-				case 'track8':
-				case 'track9':
-				case 'track10':
-				case 'track11':
-				case 'track12':
-				case 'track13':
-				case 'track14':*/
+
+				case '2':
+					if($question === 'q1'){
+						if ($answer === 'yes'){
+							Session::put('track', '1');
+							return 'question2';
+						}
+						elseif ($answer === 'no'){
+							Session::put('track', '2');
+							return 'question2';
+						}
+						else {
+							Log::error('Answer was not provided or undefined.');
+							return 'error';
+						}
+					}
+					elseif($question === 'q2'){
+						if($answer === 'yes'){
+							Session::put('track', '6');
+							return 'question5';
+						}
+						elseif($answer === 'no'){
+							return 'results/track/2';
+						}
+						else {
+							Log::error('Answer was not provided or undefined.');
+							return 'error';
+						}
+					}
+				
+				case '3':
+					if($question === 'q1'){
+						if($answer === 'yes'){
+							Session::put('track', '1');
+							return 'question2';
+						}
+						elseif($answer === 'no'){
+							Session::put('track', '2');
+							return 'question2';
+						}
+						else {
+							Log::error('Answer was not provided or undefined.');
+							return 'error';
+						}
+					}
+					elseif($question === 'q2'){
+						if($answer === 'yes'){
+							Session::put('track', '1');
+							return 'question3';
+						}
+						elseif($answer === 'no'){
+							Session::put('track', '3');
+							return 'question3';
+						}
+						else {
+							Log::error('Answer was not provided or undefined.');
+							return 'error';
+						}
+					}
+					elseif($question === 'q3'){
+						if($answer === 'yes'){
+							return 'results/track/3';
+						}
+						elseif($answer === 'no'){
+							Session::put('track', '4');
+							return 'question4';
+						}
+						else {
+							Log::error('Answer was not provided or undefined.');
+							return 'error';
+						}
+					}
+
+				case '4':
+					if($question === 'q1'){
+						if($answer === 'yes'){
+							Session::put('track', '1');
+							return 'question2';
+						}
+						elseif($answer === 'no'){
+							Session::put('track', '2');
+							return 'question2';
+						}
+						else {
+							Log::error('Answer was not provided or undefined.');
+							return 'error';
+						}
+					}
+					elseif($question === 'q2'){
+						if($answer === 'yes'){
+							Session::put('track', '1');
+							return 'question3';
+						}
+						elseif($answer === 'no'){
+							Session::put('track', '4');
+							return 'question3';
+						}
+						else {
+							Log::error('Answer was not provided or undefined.');
+							return 'error';
+						}
+					}
+					elseif($question === 'q3'){
+						if($answer === 'yes'){
+							return 'results/track/3';
+						}
+						elseif($answer === 'no'){
+							Session::put('track', '4');
+							return 'question4';
+						}
+						else {
+							Log::error('Answer was not provided or undefined.');
+							return 'error';
+						}
+					}
+				/*case '5':
+				case '6':
+				case '7':
+				case '8':
+				case '9':
+				case '10':
+				case '11':
+				case '12':
+				case '13':
+				case '14':*/
 			}
 
 }	
