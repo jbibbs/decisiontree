@@ -10,7 +10,7 @@
 		<p>{{ $outcome }}</p>
         <h3>Your responses:</h3>
         @foreach($responses as $response)
-            <p>{{ print_r($response) }}</p>
+            <p>{{ gettype($response) }}</p>
         @endforeach
 	</div>
 </body>
