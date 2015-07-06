@@ -28,4 +28,7 @@ Route::get('track1', 'SurveyController@track1');
 Route::get('track2', 'SurveyController@track2');
 Route::get('track3', 'SurveyController@track3');
 
+Route::get('error', function(){
+	return View::make('error');
+});
 

@@ -163,6 +163,11 @@ class SurveyController extends BaseController {
 		}
 	}
 
+	// There is a screw up here that needs to be addressed.
+	// Somehow I was being presented with question 1, but the system was trying to save
+	// the answer as for question 5. Need to button up how questions/answers are being saved in 
+	// session to make sure questions answers have an iron tight relationship.
+	
 	protected function get_next_step($question, $answer, $track){
 			switch ($track){   
 				case '1':
@@ -214,14 +219,16 @@ class SurveyController extends BaseController {
 							return 'results/track/1';
 						}
 						elseif ($answer === 'no'){
-							// Do something else
+							Log::error('The current track ' . $track . ' does not allow a ' . $answer . 
+								' response from question ' . $question);
+							return 'error';
 						}
 						else {
 							// Default
 						}
 					}
-			
-				/*case 'track2':
+			/*
+				case 'track2':
 				case 'track3':
 				case 'track4':
 				case 'track5':

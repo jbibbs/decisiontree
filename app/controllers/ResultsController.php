@@ -20,7 +20,7 @@ class ResultsController extends BaseController {
 
 	public function get_results(){
 		$track = Route::input('id');
-		$responses = Session::all();
+		$responses = self::clean_results(Session::all());
 
 		switch($track){
 			case '1': $outcome = 'a2'; break;
@@ -48,7 +48,22 @@ class ResultsController extends BaseController {
                ));
 	}
 
-	
+	private function clean_results($results){
+		$clean_results = array();
+		foreach($results as $key => $value){
+			if($key === 'name'){
+				$clean_results['name'] = $value;
+			}
+			elseif(substr($key, 0, 6) === 'answer'){
+				$q = 'q' . substr($key, -1);
+				$clean_results[SurveyController::$questions[$q]] = $value;
+			}
+		}
+		
+		return $clean_results;
+	}
+
+
 
 
 }
