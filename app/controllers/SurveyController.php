@@ -36,15 +36,7 @@ class SurveyController extends BaseController {
 			));
 	}
 
-	public function post_question(){
-		if (Input::has('q')){
-			$q = Input::get('q');
-		}
-		else {
-			Log::error('Unable to retrieve referenced question');
-			return Redirect::to('error');
-			));
-		}
+	public function post_question($id){
 
 		// Get the user response or assign to NULL
 		if (Input::has('answer')){
@@ -53,8 +45,14 @@ class SurveyController extends BaseController {
 		else {
 			$answer = NULL;
 		}
+		if(Session::has('track')){
+			$track = Session::get('track');
+		}
+		else {
+			$track = '0';
+		}
 
-		switch($q){
+		switch($id){
 			case 'name':
 				Session::put('name', $answer);
 				return Redirect::to('question/1');
@@ -67,7 +65,6 @@ class SurveyController extends BaseController {
 				}
 				return Redirect::to('question/2');
 			case '2':
-				$track = Session::get('track');
 				if($track === '1'){
 					if($answer === 'yes'){
 						Session::put('track', '3');

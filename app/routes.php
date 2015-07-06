@@ -12,7 +12,6 @@
 */
 
 Route::get('/', 'SurveyController@getName');
-Route::post('name', 'SurveyController@postName');
 
 Route::get('question/{id}', 'SurveyController@get_question');
 Route::post('question/{id}', 'SurveyController@post_question');
