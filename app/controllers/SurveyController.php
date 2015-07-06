@@ -4,16 +4,16 @@ class SurveyController extends BaseController {
 
 	// Question List
 	public static $questions = array(
-		'name'		=> "Please enter your name:",
-		'q1' 		=> "Is high quality important here or is a good solution absolutely critical? 
+		'name'	=> "Please enter your name:",
+		'1' 	=> "Is high quality important here or is a good solution absolutely critical? 
 						(is this a case where it would not be acceptable having lots of equal alternatives?)",
-		'q2'		=> "Is team commitment important to the decision?",
-		'q3'		=> "Do you have enough information of your own to make a good decision?",
-		'q4'		=> "Is the problem structured in such a way that it is clearly defined & organized with potential 
+		'2'		=> "Is team commitment important to the decision?",
+		'3'		=> "Do you have enough information of your own to make a good decision?",
+		'4'		=> "Is the problem structured in such a way that it is clearly defined & organized with potential 
 								solutions identified?",
-		'q5'		=> "If you make this decision yourself, are you sure the group will accept and support it?",
-		'q6'		=> "Does the team have the same organizational goals?",
-		'q7'		=> "Is conflict amongst the team over the decision likely?"
+		'5'		=> "If you make this decision yourself, are you sure the group will accept and support it?",
+		'6'		=> "Does the team have the same organizational goals?",
+		'7'		=> "Is conflict amongst the team over the decision likely?"
 	);
 
 
@@ -26,66 +26,71 @@ class SurveyController extends BaseController {
 		));
 	}
 
-	public function getQ1(){
+	public function get_question(){
+		$q = Route::input('id');
 		return View::make('survey')->nest('form', 'form1', 
 			array(
-				'question' 	=> self::$questions['q1'],
-				'q' 		=> 'q1',
-				'url' 		=> 'process',
-			));
-	}
-	public function getQ2(){
-		return View::make('survey')->nest('form', 'form1', 
-			array(
-				'question' 	=> self::$questions['q2'],
-				'q' 		=> 'q2',
-				'url' 		=> 'process',
+				'question' 	=> self::$questions[$q],
+				'q' 		=> $q,
+				'url' 		=> 'answer'
 			));
 	}
 
-	public function getQ3(){
-		return View::make('survey')->nest('form', 'form1', 
-			array(
-				'question' 	=> self::$questions['q3'],
-				'q' 		=> 'q3',
-				'url' 		=> 'process',
+	public function post_question(){
+		if (Input::has('q')){
+			$q = Input::get('q');
+		}
+		else {
+			Log::error('Unable to retrieve referenced question');
+			return Redirect::to('error');
 			));
-	}
+		}
 
-	public function getQ4(){
-		return View::make('survey')->nest('form', 'form1', 
-			array(
-				'question' 	=> self::$questions['q4'],
-				'q' 		=> 'q4',
-				'url' 		=> 'process',
-			));
-	}
+		// Get the user response or assign to NULL
+		if (Input::has('answer')){
+			$answer = Input::get('answer');
+		}
+		else {
+			$answer = NULL;
+		}
 
-	public function getQ5(){
-		return View::make('survey')->nest('form', 'form1', 
-			array(
-				'question' 	=> self::$questions['q5'],
-				'q' 		=> 'q5',
-				'url' 		=> 'process',
-			));
-	}
+		switch($q){
+			case 'name':
+				Session::put('name', $answer);
+				return Redirect::to('question/1');
+			case '1':
+				if($answer === 'yes'){
+					Session::put('track', '1');
+				}
+				if($answer === 'no'){
+					Session::put('track', '2');
+				}
+				return Redirect::to('question/2');
+			case '2':
+				$track = Session::get('track');
+				if($track === '1'){
+					if($answer === 'yes'){
+						Session::put('track', '3');
+					}
+					if($answer === 'no'){
+						Session::put('track', '4');
+					}
+				return Redirect::to('question/3')
+				}
+				if($track === '2'){
+					if($answer === 'yes'){
+						Session::put('track', '5');
+						return Redirect::to('question/5');
+					}
+					if($answer === 'no'){
+						return Redirect::to('results/a1')
+					}
+				}
+			case '3':
+				$track = Session::get('track');
 
-	public function getQ6(){
-		return View::make('survey')->nest('form', 'form1', 
-			array(
-				'question' 	=> self::$questions['q6'],
-				'q' 		=> 'q6',
-				'url' 		=> 'process',
-			));
-	}
-
-	public function getQ7(){
-		return View::make('survey')->nest('form', 'form1', 
-			array(
-				'question' 	=> self::$questions['q7'],
-				'q' 		=> 'q7',
-				'url' 		=> 'process',
-			));
+		}
+         
 	}
 
 
@@ -168,7 +173,7 @@ class SurveyController extends BaseController {
 	// the answer as for question 5. Need to button up how questions/answers are being saved in 
 	// session to make sure questions answers have an iron tight relationship.
 
-	protected function get_next_step($question, $answer, $track){
+	/*protected function get_next_step($question, $answer, $track){
 			switch ($track){   
 				case '1':
 					if($question === 'q1'){
@@ -347,7 +352,7 @@ class SurveyController extends BaseController {
 							return 'error';
 						}
 					}
-				/*case '5':
+				case '5':
 				case '6':
 				case '7':
 				case '8':
@@ -356,7 +361,7 @@ class SurveyController extends BaseController {
 				case '11':
 				case '12':
 				case '13':
-				case '14':*/
-			}
+				case '14':
+			}*/
 
 }	

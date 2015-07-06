@@ -19,26 +19,8 @@ class ResultsController extends BaseController {
 
 
 	public function get_results(){
-		$track = Route::input('id');
+		$outcome = Route::input('id');
 		$responses = self::clean_results(Session::all());
-
-		switch($track){
-			case '1': $outcome = 'a2'; break;
-			case '2': $outcome = 'a1'; break;
-			case '3': $outcome = 'a1'; break;
-			case '4': $outcome = 'c2'; break;
-			case '5': $outcome = 'c2'; break;
-			case '6': $outcome = 'a1'; break;
-			case '7': $outcome = 'g2'; break;
-			case '8': $outcome = 'g2'; break;
-			case '9': $outcome = 'c2'; break;
-			case '10': $outcome = 'a2'; break;
-			case '11': $outcome = 'c1'; break;
-			case '12': $outcome = 'a2'; break;
-			case '13': $outcome = 'g2'; break;
-			case '14': $outcome = 'c2'; break;
-			default: $outcome = 'default'; break;
-		}
 
 		Session::flush();
 		return View::make('results', array(
