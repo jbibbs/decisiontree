@@ -37,6 +37,11 @@ class SurveyController extends BaseController {
 			));
 	}
 
+	// Need to review this. Somethign wrong with question three in this series:
+	// Q1. Y, Q2. Y, Q3. N
+	// Q3 gets repeated at this point. I also think it's confusing with each node identified uniquely
+	// Unless I'm mistaken you should be able to number the nodes beginning with #1 on each question 
+	// instead of a unique id for each node
 	public function post_question($id){
 
 		// Get the user response or assign to NULL
@@ -82,8 +87,6 @@ class SurveyController extends BaseController {
 						Session::put('track', '4');
 						return Redirect::to('question/3');
 					}
-					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-					return Redirect::to('error');
 				}
 				if($track === '2'){
 					if($answer === 'yes'){
@@ -94,9 +97,10 @@ class SurveyController extends BaseController {
 						Session::put('track', '6');
 						return Redirect::to('results/6');
 					}
-					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-					return Redirect::to('error');
 				}
+				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+				return Redirect::to('error');
+
 			case '3':
 				Session::put('answer3', $answer);
 				if($track === '3'){
@@ -108,8 +112,6 @@ class SurveyController extends BaseController {
 						Session::put('track', '8');
 						return Redirect::to('question/3');
 					}
-					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-					return Redirect::to('error');
 				}
 				if($track === '4'){
 					if($answer === 'yes'){
@@ -120,9 +122,9 @@ class SurveyController extends BaseController {
 						Session::put('track', '10');
 						return Redirect::to('question/4');
 					}
-					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-					return Redirect::to('error');
 				}
+				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+				return Redirect::to('error');
 
 			case '4':
 				Session::put('answer4', $answer);
@@ -135,8 +137,6 @@ class SurveyController extends BaseController {
 						Session::put('track', '12');
 						return Redirect::to('question/5');
 					}
-					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-					return Redirect::to('error');
 				}
 				if($track === '10'){
 					if($answer === 'yes'){
@@ -147,9 +147,9 @@ class SurveyController extends BaseController {
 						Session::put('track', '14');
 						return Redirect::to('results/14');
 					}
-					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-					return Redirect::to('error');
 				}
+				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+				return Redirect::to('error');
 
 			case '5':
 				Session::put('answer5', $answer);
@@ -162,8 +162,6 @@ class SurveyController extends BaseController {
 						Session::put('track', '16');
 						return Redirect::to('question/6');
 					}
-					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-					return Redirect::to('error');
 				}
 				if($track === '11'){
 					if($answer === 'yes'){
@@ -174,8 +172,6 @@ class SurveyController extends BaseController {
 						Session::put('track', '18');
 						return Redirect::to('question/6');
 					}
-					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-					return Redirect::to('error');
 				}
 				if($track === '12'){
 					if($answer === 'yes'){
@@ -186,8 +182,6 @@ class SurveyController extends BaseController {
 						Session::put('track', '20');
 						return Redirect::to('question/6');
 					}
-					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-					return Redirect::to('error');
 				}
 				if($track === '5'){
 					if($answer === 'yes'){
@@ -198,9 +192,9 @@ class SurveyController extends BaseController {
 						Session::put('track', '22');
 						return Redirect::to('results/22');
 					}
-					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-					return Redirect::to('error');
 				}
+				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+				return Redirect::to('error');
 
 			case '6':
 				Session::put('answer6', $answer);
@@ -213,8 +207,6 @@ class SurveyController extends BaseController {
 						Session::put('track', '24');
 						return Redirect::to('results/24');
 					}
-					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-					return Redirect::to('error');
 				}
 				if($track === '17'){
 					if($answer == 'yes'){
@@ -225,9 +217,9 @@ class SurveyController extends BaseController {
 						Session::put('track', '26');
 						return Redirect::to('results/26');
 					}
-					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-					return Redirect::to('error');
 				}
+				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+				return Redirect::to('error');
 
 			case '7':
 				Session::put('answer7', $answer);
@@ -240,8 +232,6 @@ class SurveyController extends BaseController {
 						Session::put('track', '29');
 						return Redirect::to('results/29');
 					}
-					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-					return Redirect::to('error');
 				}
 				if($track === '27'){
 					if($answer == 'yes'){
@@ -252,11 +242,11 @@ class SurveyController extends BaseController {
 						Session::put('track', '31');
 						return Redirect::to('results/31');
 					}
-					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-					return Redirect::to('error');
 				}
+				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+				return Redirect::to('error');
 			default:
-				Log::error('There was no case to match this combination of question and track');
+				Log::error('There was no case to match this combination of question and track. Question: '. $id . ' Track: ' . $track);
 				return Redirect::to('error');
 		}
          
