@@ -22,7 +22,7 @@ class SurveyController extends BaseController {
 		return View::make('survey')->nest('form', 'form2', array(
 			'question' 	=> self::$questions['name'], 
 			'q'			=> 'name',
-			'url' 		=> 'process'
+			'url' 		=> 'question/name'
 		));
 	}
 
@@ -32,7 +32,7 @@ class SurveyController extends BaseController {
 			array(
 				'question' 	=> self::$questions[$q],
 				'q' 		=> $q,
-				'url' 		=> 'answer'
+				'url' 		=> "question/$q"
 			));
 	}
 
@@ -59,20 +59,27 @@ class SurveyController extends BaseController {
 			case '1':
 				if($answer === 'yes'){
 					Session::put('track', '1');
+					return Redirect::to('question/2');
 				}
 				if($answer === 'no'){
 					Session::put('track', '2');
+					return Redirect::to('question/2');
 				}
-				return Redirect::to('question/2');
+				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+				return Redirect::to('error');
+				
 			case '2':
 				if($track === '1'){
 					if($answer === 'yes'){
 						Session::put('track', '3');
+						return Redirect::to('question/3');
 					}
 					if($answer === 'no'){
 						Session::put('track', '4');
+						return Redirect::to('question/3');
 					}
-				return Redirect::to('question/3')
+					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+					return Redirect::to('error');
 				}
 				if($track === '2'){
 					if($answer === 'yes'){
@@ -80,285 +87,170 @@ class SurveyController extends BaseController {
 						return Redirect::to('question/5');
 					}
 					if($answer === 'no'){
-						return Redirect::to('results/a1')
+						Session::put('track', '6');
+						return Redirect::to('results/6');
 					}
+					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+					return Redirect::to('error');
 				}
 			case '3':
-				$track = Session::get('track');
-
-		}
-         
-	}
-
-
-
-	// Main logic is here. Determines where to go next based on track and question number
-	 public function process(){
-	 	// Error handler. Do not proceed if you cannot retrieve the question number
-		if (Input::has('q')){
-			$q = Input::get('q');
-		}
-		else {
-			Log::error('Unable to retrieve referenced (q)uestion');
-			return View::make('results', array(
-					'heading' => 'We\'re sorry. Something has gone wrong.',
-					'results' => 'Unable to identify the question you responded to. Please start the survey over or contact support.'
-			));
-		}
-         
-         // Get the user response or assign to NULL
-		if (Input::has('answer')){
-			$answer = Input::get('answer');
-		}
-		else {
-			$answer = NULL;
-		}
-
-		// Get the current track from session or assign a default
-		if (Session::has('track')){
-			$track = Session::get('track');
-		}
-		else {
-			$track = '1';
-		}
-         
-         // q variable is the string name of the submitted question passed by a hidden field
-		switch ($q){
-			// Handles the unique first case where user submits their name
-			case 'name':
-				if(Input::has('name')){
-					$name = Input::get('name');
-                    Session::put('name', $name);
-				    return Redirect::to('question1');
+				if($track === '3'){
+					if($answer === 'yes'){
+						Session::put('track', '7');
+						return Redirect::to('question/5');
+					}
+					if($answer === 'no'){
+						Session::put('track', '8');
+						return Redirect::to('question/3');
+					}
+					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+					return Redirect::to('error');
 				}
-				break;
+				if($track === '4'){
+					if($answer === 'yes'){
+						Session::put('track', '9');
+						return Redirect::to('results/9');
+					}
+					if($answer === 'no'){
+						Session::put('track', '10');
+						return Redirect::to('question/4');
+					}
+					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+					return Redirect::to('error');
+				}
 
-			// All the "q" cases handle the answer submissions
-			case 'q1':
-				Session::put('answer1', $answer);
-				$step = $this->get_next_step($q, $answer, $track);
-				return Redirect::to($step);
-			case 'q2':
-				Session::put('answer2', $answer);
-				$step = $this->get_next_step($q, $answer, $track);
-				return Redirect::to($step);
-			case 'q3':
-				Session::put('answer3', $answer);
-				$step = $this->get_next_step($q, $answer, $track);
-				return Redirect::to($step);
-			case 'q4':
-				Session::put('answer4', $answer);
-				$step = $this->get_next_step($q, $answer, $track);
-				return Redirect::to($step);
-			case 'q5':
-				Session::put('answer5', $answer);
-				$step = $this->get_next_step($q, $answer, $track);
-				return Redirect::to($step);
-			case 'q6':
-				Session::put('answer6', $answer);
-				$step = $this->get_next_step($q, $answer, $track);
-				return Redirect::to($step);
-			case 'q7':
-				Session::put('answer7', $answer);
-				$step = $this->get_next_step($q, $answer, $track);
-				return Redirect::to($step);
+			case '4':
+				if($track === '8'){
+					if($answer === 'yes'){
+						Session::put('track', '11');
+						return Redirect::to('question/5');
+					}
+					if($answer === 'no'){
+						Session::put('track', '12');
+						return Redirect::to('question/5');
+					}
+					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+					return Redirect::to('error');
+				}
+				if($track === '10'){
+					if($answer === 'yes'){
+						Session::put('track', '13');
+						return Redirect::to('question/5');
+					}
+					if($answer === 'no'){
+						Session::put('track', '14');
+						return Redirect::to('results/14');
+					}
+					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+					return Redirect::to('error');
+				}
+
+			case '5':
+				if($track === '7'){
+					if($answer === 'yes'){
+						Session::put('track', '15');
+						return Redirect::to('results/15');
+					}
+					if($answer === 'no'){
+						Session::put('track', '16');
+						return Redirect::to('question/6');
+					}
+					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+					return Redirect::to('error');
+				}
+				if($track === '11'){
+					if($answer === 'yes'){
+						Session::put('track', '17');
+						return Redirect::to('question/6');
+					}
+					if($answer === 'no'){
+						Session::put('track', '18');
+						return Redirect::to('question/6');
+					}
+					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+					return Redirect::to('error');
+				}
+				if($track === '12'){
+					if($answer === 'yes'){
+						Session::put('track', '19');
+						return Redirect::to('results/19');
+					}
+					if($answer === 'no'){
+						Session::put('track', '20');
+						return Redirect::to('question/6');
+					}
+					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+					return Redirect::to('error');
+				}
+				if($track === '5'){
+					if($answer === 'yes'){
+						Session::put('track', '21');
+						return Redirect::to('results/21');
+					}
+					if($answer === 'no'){
+						Session::put('track', '22');
+						return Redirect::to('results/22');
+					}
+					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+					return Redirect::to('error');
+				}
+
+			case '6':
+				if($track === '16'){
+					if($answer == 'yes'){
+						Session::put('track', '23');
+						return Redirect::to('results/23');
+					}
+					if($answer == 'no'){
+						Session::put('track', '24');
+						return Redirect::to('results/24');
+					}
+					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+					return Redirect::to('error');
+				}
+				if($track === '17'){
+					if($answer == 'yes'){
+						Session::put('track', '25');
+						return Redirect::to('question/7');
+					}
+					if($answer == 'no'){
+						Session::put('track', '26');
+						return Redirect::to('results/26');
+					}
+					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+					return Redirect::to('error');
+				}
+
+			case '7':
+				if($track === '25'){
+					if($answer == 'yes'){
+						Session::put('track', '28');
+						return Redirect::to('results/28');
+					}
+					if($answer == 'no'){
+						Session::put('track', '29');
+						return Redirect::to('results/29');
+					}
+					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+					return Redirect::to('error');
+				}
+				if($track === '27'){
+					if($answer == 'yes'){
+						Session::put('track', '30');
+						return Redirect::to('results/30');
+					}
+					if($answer == 'no'){
+						Session::put('track', '31');
+						return Redirect::to('results/31');
+					}
+					Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
+					return Redirect::to('error');
+				}
+			default:
+				Log::error('There was no case to match this combination of question and track');
+				return Redirect::to('error');
 		}
+         
 	}
-
-	// There is a screw up here that needs to be addressed.
-	// Somehow I was being presented with question 1, but the system was trying to save
-	// the answer as for question 5. Need to button up how questions/answers are being saved in 
-	// session to make sure questions answers have an iron tight relationship.
-
-	/*protected function get_next_step($question, $answer, $track){
-			switch ($track){   
-				case '1':
-					if($question === 'q1'){
-						if ($answer === 'yes'){
-							Session::put('track', '1');
-							return 'question2';
-						}
-						elseif ($answer === 'no'){
-							Session::put('track', '2');
-							return 'question2';
-						}
-						else {
-							Log::error('Answer was not provided or undefined.');
-							return 'error';
-						}
-					}
-					if($question === 'q2'){
-						if ($answer === 'yes'){
-							Session::put('track', '1');
-							return 'question3';
-						}
-						elseif ($answer === 'no'){
-							Session::put('track', '7');
-							return 'question3';
-						}
-						else {
-							Log::error('Answer was not provided or undefined.');
-							return 'error';
-						}
-					}
-					if($question === 'q3'){
-						if ($answer === 'yes'){
-							Session::put('track', '1');
-							return 'question5';
-						}
-						elseif ($answer === 'no'){
-							Session::put('track', '4');
-							return 'question5';
-						}
-						else {
-							Log::error('Answer was not provided or undefined.');
-							return 'error';
-						}
-					}
-					if($question === 'q4'){
-							Log::error('Question 4 should not appear as part of track 1');
-							return 'error';
-						}
-					}
-					if($question === 'q5'){
-						if ($answer === 'yes'){
-							return 'results/track/1';
-						}
-						elseif ($answer === 'no'){
-							Log::error('The current track ' . $track . ' does not allow a ' . $answer . 
-								' response from question ' . $question);
-							return 'error';
-						}
-						else {
-							Log::error('Answer was not provided or undefined.');
-							return 'error';
-						}
-					}
-
-				case '2':
-					if($question === 'q1'){
-						if ($answer === 'yes'){
-							Session::put('track', '1');
-							return 'question2';
-						}
-						elseif ($answer === 'no'){
-							Session::put('track', '2');
-							return 'question2';
-						}
-						else {
-							Log::error('Answer was not provided or undefined.');
-							return 'error';
-						}
-					}
-					elseif($question === 'q2'){
-						if($answer === 'yes'){
-							Session::put('track', '6');
-							return 'question5';
-						}
-						elseif($answer === 'no'){
-							return 'results/track/2';
-						}
-						else {
-							Log::error('Answer was not provided or undefined.');
-							return 'error';
-						}
-					}
-				
-				case '3':
-					if($question === 'q1'){
-						if($answer === 'yes'){
-							Session::put('track', '1');
-							return 'question2';
-						}
-						elseif($answer === 'no'){
-							Session::put('track', '2');
-							return 'question2';
-						}
-						else {
-							Log::error('Answer was not provided or undefined.');
-							return 'error';
-						}
-					}
-					elseif($question === 'q2'){
-						if($answer === 'yes'){
-							Session::put('track', '1');
-							return 'question3';
-						}
-						elseif($answer === 'no'){
-							Session::put('track', '3');
-							return 'question3';
-						}
-						else {
-							Log::error('Answer was not provided or undefined.');
-							return 'error';
-						}
-					}
-					elseif($question === 'q3'){
-						if($answer === 'yes'){
-							return 'results/track/3';
-						}
-						elseif($answer === 'no'){
-							Session::put('track', '4');
-							return 'question4';
-						}
-						else {
-							Log::error('Answer was not provided or undefined.');
-							return 'error';
-						}
-					}
-
-				case '4':
-					if($question === 'q1'){
-						if($answer === 'yes'){
-							Session::put('track', '1');
-							return 'question2';
-						}
-						elseif($answer === 'no'){
-							Session::put('track', '2');
-							return 'question2';
-						}
-						else {
-							Log::error('Answer was not provided or undefined.');
-							return 'error';
-						}
-					}
-					elseif($question === 'q2'){
-						if($answer === 'yes'){
-							Session::put('track', '1');
-							return 'question3';
-						}
-						elseif($answer === 'no'){
-							Session::put('track', '4');
-							return 'question3';
-						}
-						else {
-							Log::error('Answer was not provided or undefined.');
-							return 'error';
-						}
-					}
-					elseif($question === 'q3'){
-						if($answer === 'yes'){
-							return 'results/track/3';
-						}
-						elseif($answer === 'no'){
-							Session::put('track', '4');
-							return 'question4';
-						}
-						else {
-							Log::error('Answer was not provided or undefined.');
-							return 'error';
-						}
-					}
-				case '5':
-				case '6':
-				case '7':
-				case '8':
-				case '9':
-				case '10':
-				case '11':
-				case '12':
-				case '13':
-				case '14':
-			}*/
 
 }	
