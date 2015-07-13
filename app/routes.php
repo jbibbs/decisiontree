@@ -13,8 +13,8 @@
 
 Route::get('/', 'SurveyController@getName');
 
-Route::get('question/{id}', "SurveyController@get_question_$id");
-Route::post('question/{id}', "SurveyController@post_question_$id");
+Route::get('question/{id}', "SurveyController@get_question");
+Route::post('question/{id}', "SurveyController@post_question");
 
 Route::get('results/{id}', array('as' => 'results', 'uses' => 'ResultsController@get_results'));
 
