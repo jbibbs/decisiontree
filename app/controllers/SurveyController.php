@@ -37,9 +37,7 @@ class SurveyController extends BaseController {
 			));
 	}
 
-	// Need to review this. Somethign wrong with question three in this series:
-	// Q1. Y, Q2. Y, Q3. N
-	// Q3 gets repeated at this point. I also think it's confusing with each node identified uniquely
+	// I think it's confusing with each node identified uniquely
 	// Unless I'm mistaken you should be able to number the nodes beginning with #1 on each question 
 	// instead of a unique id for each node
 	public function post_question($id){
@@ -110,7 +108,7 @@ class SurveyController extends BaseController {
 					}
 					if($answer === 'no'){
 						Session::put('track', '8');
-						return Redirect::to('question/3');
+						return Redirect::to('question/4');
 					}
 				}
 				if($track === '4'){
@@ -216,6 +214,26 @@ class SurveyController extends BaseController {
 					if($answer == 'no'){
 						Session::put('track', '26');
 						return Redirect::to('results/26');
+					}
+				}
+				if($track === '18'){
+					if($answer === 'yes'){
+						Session::put('track', '27');
+						return Redirect::to('question/7');
+					}
+					if($answer === 'no'){
+						Session::put('track', '24');
+						return Redirect::to('results/24');
+					}
+				}
+				if($track === '20'){
+					if($answer === 'yes'){
+						Session::put('track', '23');
+						return Redirect::to('results/23');
+					}
+					if($answer === 'no'){
+						Session::put('track', '24');
+						return Redirect::to('results/24');
 					}
 				}
 				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
