@@ -64,25 +64,22 @@ class SurveyController extends BaseController {
 			case '1':
 				if($answer === 'yes'){
 					Session::put('track', '1');
-					return Redirect::to('question/2');
 				}
 				if($answer === 'no'){
 					Session::put('track', '2');
-					return Redirect::to('question/2');
 				}
-				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-				return Redirect::to('error');
+				return Redirect::to('question/2');
 				
 			case '2':
+				
 				if($track === '1'){
 					if($answer === 'yes'){
 						Session::put('track', '3');
-						return Redirect::to('question/3');
 					}
 					if($answer === 'no'){
 						Session::put('track', '4');
-						return Redirect::to('question/3');
 					}
+					return Redirect::to('question/3');
 				}
 				if($track === '2'){
 					if($answer === 'yes'){
@@ -94,8 +91,6 @@ class SurveyController extends BaseController {
 						return Redirect::to('results/6');
 					}
 				}
-				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-				return Redirect::to('error');
 
 			case '3':
 				if($track === '3'){
@@ -118,19 +113,16 @@ class SurveyController extends BaseController {
 						return Redirect::to('question/4');
 					}
 				}
-				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-				return Redirect::to('error');
 
 			case '4':
 				if($track === '8'){
 					if($answer === 'yes'){
 						Session::put('track', '11');
-						return Redirect::to('question/5');
 					}
 					if($answer === 'no'){
 						Session::put('track', '12');
-						return Redirect::to('question/5');
 					}
+					return Redirect::to('question/5');
 				}
 				if($track === '10'){
 					if($answer === 'yes'){
@@ -142,8 +134,6 @@ class SurveyController extends BaseController {
 						return Redirect::to('results/14');
 					}
 				}
-				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-				return Redirect::to('error');
 
 			case '5':
 				if($track === '7'){
@@ -159,12 +149,11 @@ class SurveyController extends BaseController {
 				if($track === '11'){
 					if($answer === 'yes'){
 						Session::put('track', '17');
-						return Redirect::to('question/6');
 					}
 					if($answer === 'no'){
 						Session::put('track', '18');
-						return Redirect::to('question/6');
 					}
+					return Redirect::to('question/6');
 				}
 				if($track === '12'){
 					if($answer === 'yes'){
