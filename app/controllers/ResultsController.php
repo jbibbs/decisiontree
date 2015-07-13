@@ -55,7 +55,8 @@ class ResultsController extends BaseController {
 				$clean_results['name'] = $value;
 			}
 			elseif(substr($key, 0, 6) === 'answer'){
-				$q = 'q' . substr($key, -1);
+				$q = substr($key, -1);
+				$value = ucfirst($value);
 				$clean_results[SurveyController::$questions[$q]] = $value;
 			}
 		}

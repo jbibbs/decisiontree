@@ -19,10 +19,11 @@ class SurveyController extends BaseController {
 
 	public function getName(){
 
-		return View::make('survey')->nest('form', 'form2', array(
-			'question' 	=> self::$questions['name'], 
-			'q'			=> 'name',
-			'url' 		=> 'question/name'
+		return View::make('survey')->nest('form', 'form2', 
+			array(
+				'question' 	=> self::$questions['name'], 
+				'q'			=> 'name',
+				'url' 		=> 'question/name'
 		));
 	}
 
@@ -36,9 +37,7 @@ class SurveyController extends BaseController {
 			));
 	}
 
-	// Need to review this. Somethign wrong with question three in this series:
-	// Q1. Y, Q2. Y, Q3. N
-	// Q3 gets repeated at this point. I also think it's confusing with each node identified uniquely
+	// I think it's confusing with each node identified uniquely
 	// Unless I'm mistaken you should be able to number the nodes beginning with #1 on each question 
 	// instead of a unique id for each node
 	public function post_question($id){
@@ -48,8 +47,9 @@ class SurveyController extends BaseController {
 			$answer = Input::get('answer');
 		}
 		else {
-			$answer = NULL;
+			$answer = 'Not provided';
 		}
+
 		if(Session::has('track')){
 			$track = Session::get('track');
 		}
@@ -62,6 +62,7 @@ class SurveyController extends BaseController {
 				Session::put('name', $answer);
 				return Redirect::to('question/1');
 			case '1':
+				Session::put('answer1', $answer);
 				if($answer === 'yes'){
 					Session::put('track', '1');
 				}
@@ -71,7 +72,7 @@ class SurveyController extends BaseController {
 				return Redirect::to('question/2');
 				
 			case '2':
-				
+				Session::put('answer2', $answer);
 				if($track === '1'){
 					if($answer === 'yes'){
 						Session::put('track', '3');
@@ -93,6 +94,7 @@ class SurveyController extends BaseController {
 				}
 
 			case '3':
+				Session::put('answer3', $answer);
 				if($track === '3'){
 					if($answer === 'yes'){
 						Session::put('track', '7');
@@ -100,7 +102,7 @@ class SurveyController extends BaseController {
 					}
 					if($answer === 'no'){
 						Session::put('track', '8');
-						return Redirect::to('question/3');
+						return Redirect::to('question/4');
 					}
 				}
 				if($track === '4'){
@@ -115,6 +117,7 @@ class SurveyController extends BaseController {
 				}
 
 			case '4':
+				Session::put('answer4', $answer);
 				if($track === '8'){
 					if($answer === 'yes'){
 						Session::put('track', '11');
@@ -136,6 +139,7 @@ class SurveyController extends BaseController {
 				}
 
 			case '5':
+				Session::put('answer5', $answer);
 				if($track === '7'){
 					if($answer === 'yes'){
 						Session::put('track', '15');
@@ -179,6 +183,7 @@ class SurveyController extends BaseController {
 				return Redirect::to('error');
 
 			case '6':
+				Session::put('answer6', $answer);
 				if($track === '16'){
 					if($answer == 'yes'){
 						Session::put('track', '23');
@@ -199,10 +204,31 @@ class SurveyController extends BaseController {
 						return Redirect::to('results/26');
 					}
 				}
+				if($track === '18'){
+					if($answer === 'yes'){
+						Session::put('track', '27');
+						return Redirect::to('question/7');
+					}
+					if($answer === 'no'){
+						Session::put('track', '24');
+						return Redirect::to('results/24');
+					}
+				}
+				if($track === '20'){
+					if($answer === 'yes'){
+						Session::put('track', '23');
+						return Redirect::to('results/23');
+					}
+					if($answer === 'no'){
+						Session::put('track', '24');
+						return Redirect::to('results/24');
+					}
+				}
 				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
 				return Redirect::to('error');
 
 			case '7':
+				Session::put('answer7', $answer);
 				if($track === '25'){
 					if($answer == 'yes'){
 						Session::put('track', '28');
