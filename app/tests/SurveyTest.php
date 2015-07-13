@@ -11,7 +11,7 @@ class SurveyTest extends TestCase {
 	{
 		$path = '1';
 
-		$this->assertTrue($this->client->getResponse()->isOk());
+		$this->assertTrue(!empty(TracksController::($node));
 	}
 
 }
