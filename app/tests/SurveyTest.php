@@ -7,10 +7,10 @@ class SurveyTest extends TestCase {
 	 *
 	 * @return void
 	 */
-	public function verifies_paths_are_correct()
+	public function test_verifies_paths_are_correct()
 	{
 
-		$this->assertTrue(1 == 1);
+		$this->assertTrue(is_array(TracksController::$node));
 	}
 
 }
