@@ -7,8 +7,8 @@ class TracksController extends BaseController {
 // Defines all nodes in the decision tree. Each node contains a unique id
 // and a path that defines it's relationship to other nodes in the tree.
 // In this case, 1's are yes answers and 2's are no's.
-	public static $node = array(
-		array('id' => 1,'prev' => 0, 'next' => 2, 'path' => '1'),
+	public static $nodes = array(
+		array('id' => 1, 'prev' => 0, 'next' => 2, 'path' => '1'),
 		array('id' => 2, 'prev' => 0, 'next' => 2, 'path' => '2'),
 		array('id' => 3, 'prev' => 1, 'next' => 3, 'path' => '1.1'),
 		array('id' => 4, 'prev' => 1, 'next' => 3, 'path' => '1.2'),
@@ -41,13 +41,6 @@ class TracksController extends BaseController {
 		array('id' => 31, 'prev' => 6, 'next' => 'results', 'path' => '1.1.2.1.2.1.2'),
 	);
 
-
-
-
-	public function __construct(){
-
-		Log::info(print_r($node));
-	}
 	
 	/** 
 	* Accepts an array; 
