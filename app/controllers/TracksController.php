@@ -53,11 +53,11 @@ class TracksController extends BaseController {
 		$current = implode('.', $answers);
 		foreach(self::$nodes as $key => $value) {
 			if($value['path'] === $current){
-				return $value['id'];
+				return $value['next'];
 			}
 			elseif(is_array($value['path'])){
 				if(in_array($current, $value['path'], true)){
-					return $value['id'];
+					return $value['next'];
 				}
 			}
 		}
