@@ -8,12 +8,12 @@ class TracksController extends BaseController {
 // and a path that defines it's relationship to other nodes in the tree.
 // In this case, 1's are yes answers and 2's are no's.
 	public static $nodes = array(
-		array('id' => 1, 'prev' => 0, 'next' => 2, 'path' => '1'),
-		array('id' => 2, 'prev' => 0, 'next' => 2, 'path' => '2'),
-		array('id' => 3, 'prev' => 1, 'next' => 3, 'path' => '1.1'),
-		array('id' => 4, 'prev' => 1, 'next' => 3, 'path' => '1.2'),
-		array('id' => 5, 'prev' => 1, 'next' => 5, 'path' => '2.1'),
-		array('id' => 6, 'prev' => 1, 'next' => 'results', 'path' => '2.2'),
+		array('id' => 1, 'prev' => 0, 'next' => 2),
+		array('id' => 2, 'prev' => 0, 'next' => 2),
+		array('id' => 3, 'prev' => 1, 'next' => 3),
+		array('id' => 4, 'prev' => 1, 'next' => 3),
+		array('id' => 5, 'prev' => 1, 'next' => 5),
+		array('id' => 6, 'prev' => 1, 'next' => 'results'),
 		array('id' => 7, 'prev' => 2, 'next' => 5, 'path' => '1.1.1'),
 		array('id' => 8, 'prev' => 2, 'next' => 4, 'path' => '1.1.2'),
 		array('id' => 9, 'prev' => 2, 'next' => 'results', 'path' => '1.2.1'),
@@ -39,6 +39,18 @@ class TracksController extends BaseController {
 		array('id' => 29, 'prev' => 6, 'next' => 'results', 'path' => '1.1.2.1.1.1.2'),
 		array('id' => 30, 'prev' => 6, 'next' => 'results', 'path' => '1.1.2.1.2.1.1'),
 		array('id' => 31, 'prev' => 6, 'next' => 'results', 'path' => '1.1.2.1.2.1.2'),
+	);
+
+
+	public static $paths = array(
+		array('node_id' => 1, 'q1' => 'yes'),
+		array('node_id' => 2, 'q1' => 'no'),
+		array('node_id' => 3, 'q1' => 'yes', 'q2' => 'yes'),
+		array('node_id' => 4, 'q1' => 'yes', 'q2' => 'no'),
+		array('node_id' => 5, 'q1' => 'no', 'q2' => 'yes'),
+		array('node_id' => 6, 'q1' => 'no', 'q2' => 'no'),
+		array('node_id' => 7, 'q1' => 'yes', 'q2' => 'yes', 'q3' => 'yes'),
+		array('node_id' => 8, 'q1' => 'yes', 'q2' => 'yes', 'q3' => 'no'),
 	);
 
 	
