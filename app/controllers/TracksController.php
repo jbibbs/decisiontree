@@ -8,12 +8,12 @@ class TracksController extends BaseController {
 // and a path that defines it's relationship to other nodes in the tree.
 // In this case, 1's are yes answers and 2's are no's.
 	public static $nodes = array(
-		array('id' => 1,  'next' => 2          'path' => '1'),
-		array('id' => 2,  'next' => 2          'path' => '0'),
-		array('id' => 3,  'next' => 3          'path' => '1.1'),
-		array('id' => 4,  'next' => 3          'path' => '1.0'),
-		array('id' => 5,  'next' => 5          'path' => '0.1'),
-		array('id' => 6,  'next' => 'results'  'path' => '0.0'),
+		array('id' => 1,  'next' => 2,         'path' => '1'),
+		array('id' => 2,  'next' => 2,         'path' => '0'),
+		array('id' => 3,  'next' => 3,         'path' => '1.1'),
+		array('id' => 4,  'next' => 3,         'path' => '1.0'),
+		array('id' => 5,  'next' => 5,         'path' => '0.1'),
+		array('id' => 6,  'next' => 'results', 'path' => '0.0'),
 		array('id' => 7,  'next' => 5,         'path' => '1.1.1'),
 		array('id' => 8,  'next' => 4,         'path' => '1.1.0'),
 		array('id' => 9,  'next' => 'results', 'path' => '1.0.1'),
@@ -34,7 +34,7 @@ class TracksController extends BaseController {
 		array('id' => 24, 'next' => 'results', 'path' => array('1.1.1.0.0', '1.1.0.0.0.0')),
 		array('id' => 25, 'next' => 7,         'path' => array('1.1.0.1.1.1', '1.0.0.1.1')),
 		array('id' => 26, 'next' => 'results', 'path' => array('1.1.0.1.1.0', '1.0.0.1.0')),
-		array('id' => 27, 'next' => 7,         'path' => '1.1.0.1.1.0'),
+		array('id' => 27, 'next' => 7,         'path' => '1.1.0.1.0.1'),
 		array('id' => 28, 'next' => 'results', 'path' => array('1.1.0.1.1.1.1', '1.0.0.1.1.1')),
 		array('id' => 29, 'next' => 'results', 'path' => array('1.1.0.1.1.1.0', '1.0.0.1.1.0')),
 		array('id' => 30, 'next' => 'results', 'path' => '1.1.0.1.0.1.1'),
