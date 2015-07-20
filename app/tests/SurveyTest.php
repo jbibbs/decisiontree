@@ -32,4 +32,13 @@ class SurveyTest extends TestCase {
 		$this->assertTrue($path === $paperPath);
 	}
 
+	public function test_submits_answers_and_verifies_returned_node_id()
+	{
+		$answers = array(1, 1, 0, 1, 0, 1, 1, 0);
+		$expected_id = 30;
+
+		$id = TracksController::get_track($answers);
+		$this->assertTrue($expected_id === $id);
+	}
+
 }

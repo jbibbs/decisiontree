@@ -50,12 +50,19 @@ class TracksController extends BaseController {
 	* The array key represents the unique number assigned to each track
 	*/
 	public static function get_track($answers){
-		foreach($tracks as $key => $track){
-			if($track === $answers){
-				return $key;
+		$current = implode('.', $answers);
+		foreach(self::$nodes as $key => $value) {
+			if($value['path'] === $current){
+				return $value['id'];
+			}
+			elseif(is_array($value['path'])){
+				if(in_array($current, $value['path'], true)){
+					return $value['id'];
+				}
 			}
 		}
 		return false;
 	}
 }
+	
 
