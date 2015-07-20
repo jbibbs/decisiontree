@@ -18,7 +18,7 @@ class SurveyController extends BaseController {
 
 
 	public function getName(){
-
+		Session::flush();
 		return View::make('survey')->nest('form', 'form2', 
 			array(
 				'question' 	=> self::$questions['name'], 
@@ -50,210 +50,16 @@ class SurveyController extends BaseController {
 			$answer = 'Not provided';
 		}
 
-		if(Session::has('track')){
-			$track = Session::get('track');
-		}
-		else {
-			$track = '0';
-		}
 
 		switch($id){
 			case 'name':
 				Session::put('name', $answer);
 				return Redirect::to('question/1');
-			case '1':
-				Session::put('answer1', $answer);
-				if($answer === 'yes'){
-					Session::put('track', '1');
-				}
-				if($answer === 'no'){
-					Session::put('track', '2');
-				}
-				return Redirect::to('question/2');
-				
-			case '2':
-				Session::put('answer2', $answer);
-				if($track === '1'){
-					if($answer === 'yes'){
-						Session::put('track', '3');
-					}
-					if($answer === 'no'){
-						Session::put('track', '4');
-					}
-					return Redirect::to('question/3');
-				}
-				if($track === '2'){
-					if($answer === 'yes'){
-						Session::put('track', '5');
-						return Redirect::to('question/5');
-					}
-					if($answer === 'no'){
-						Session::put('track', '6');
-						return Redirect::to('results/6');
-					}
-				}
-
-			case '3':
-				Session::put('answer3', $answer);
-				if($track === '3'){
-					if($answer === 'yes'){
-						Session::put('track', '7');
-						return Redirect::to('question/5');
-					}
-					if($answer === 'no'){
-						Session::put('track', '8');
-						return Redirect::to('question/4');
-					}
-				}
-				if($track === '4'){
-					if($answer === 'yes'){
-						Session::put('track', '9');
-						return Redirect::to('results/9');
-					}
-					if($answer === 'no'){
-						Session::put('track', '10');
-						return Redirect::to('question/4');
-					}
-				}
-
-			case '4':
-				Session::put('answer4', $answer);
-				if($track === '8'){
-					if($answer === 'yes'){
-						Session::put('track', '11');
-					}
-					if($answer === 'no'){
-						Session::put('track', '12');
-					}
-					return Redirect::to('question/5');
-				}
-				if($track === '10'){
-					if($answer === 'yes'){
-						Session::put('track', '13');
-						return Redirect::to('question/5');
-					}
-					if($answer === 'no'){
-						Session::put('track', '14');
-						return Redirect::to('results/14');
-					}
-				}
-
-			case '5':
-				Session::put('answer5', $answer);
-				if($track === '7'){
-					if($answer === 'yes'){
-						Session::put('track', '15');
-						return Redirect::to('results/15');
-					}
-					if($answer === 'no'){
-						Session::put('track', '16');
-						return Redirect::to('question/6');
-					}
-				}
-				if($track === '11'){
-					if($answer === 'yes'){
-						Session::put('track', '17');
-					}
-					if($answer === 'no'){
-						Session::put('track', '18');
-					}
-					return Redirect::to('question/6');
-				}
-				if($track === '12'){
-					if($answer === 'yes'){
-						Session::put('track', '19');
-						return Redirect::to('results/19');
-					}
-					if($answer === 'no'){
-						Session::put('track', '20');
-						return Redirect::to('question/6');
-					}
-				}
-				if($track === '5'){
-					if($answer === 'yes'){
-						Session::put('track', '21');
-						return Redirect::to('results/21');
-					}
-					if($answer === 'no'){
-						Session::put('track', '22');
-						return Redirect::to('results/22');
-					}
-				}
-				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-				return Redirect::to('error');
-
-			case '6':
-				Session::put('answer6', $answer);
-				if($track === '16'){
-					if($answer == 'yes'){
-						Session::put('track', '23');
-						return Redirect::to('results/23');
-					}
-					if($answer == 'no'){
-						Session::put('track', '24');
-						return Redirect::to('results/24');
-					}
-				}
-				if($track === '17'){
-					if($answer == 'yes'){
-						Session::put('track', '25');
-						return Redirect::to('question/7');
-					}
-					if($answer == 'no'){
-						Session::put('track', '26');
-						return Redirect::to('results/26');
-					}
-				}
-				if($track === '18'){
-					if($answer === 'yes'){
-						Session::put('track', '27');
-						return Redirect::to('question/7');
-					}
-					if($answer === 'no'){
-						Session::put('track', '24');
-						return Redirect::to('results/24');
-					}
-				}
-				if($track === '20'){
-					if($answer === 'yes'){
-						Session::put('track', '23');
-						return Redirect::to('results/23');
-					}
-					if($answer === 'no'){
-						Session::put('track', '24');
-						return Redirect::to('results/24');
-					}
-				}
-				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-				return Redirect::to('error');
-
-			case '7':
-				Session::put('answer7', $answer);
-				if($track === '25'){
-					if($answer == 'yes'){
-						Session::put('track', '28');
-						return Redirect::to('results/28');
-					}
-					if($answer == 'no'){
-						Session::put('track', '29');
-						return Redirect::to('results/29');
-					}
-				}
-				if($track === '27'){
-					if($answer == 'yes'){
-						Session::put('track', '30');
-						return Redirect::to('results/30');
-					}
-					if($answer == 'no'){
-						Session::put('track', '31');
-						return Redirect::to('results/31');
-					}
-				}
-				Log::error('Could not identify response for question ' . $id . ' on track ' . $track);
-				return Redirect::to('error');
 			default:
-				Log::error('There was no case to match this combination of question and track. Question: '. $id . ' Track: ' . $track);
-				return Redirect::to('error');
+				Session::push('answers', $answer);
+				$answers = Session::get('answers');
+				$next = TracksController::get_next($answers);
+				return Redirect::to($next);
 		}
          
 	}
