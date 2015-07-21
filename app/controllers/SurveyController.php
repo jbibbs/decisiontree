@@ -3,18 +3,16 @@
 class SurveyController extends BaseController {
 
 	// Question List
-	public static $questions = array(
-		'name'	=> "Please enter your name:",
-		'q1' 	=> "Is high quality important here or is a good solution absolutely critical? 
-						(is this a case where it would not be acceptable having lots of equal alternatives?)",
-		'q2'		=> "Is team commitment important to the decision?",
-		'q3'		=> "Do you have enough information of your own to make a good decision?",
-		'q4'		=> "Is the problem structured in such a way that it is clearly defined & organized with potential 
-								solutions identified?",
-		'q5'		=> "If you make this decision yourself, are you sure the group will accept and support it?",
-		'q6'		=> "Does the team have the same organizational goals?",
-		'q7'		=> "Is conflict amongst the team over the decision likely?"
-	);
+	public static $name = 'Please enter your name:';
+	public static $q1   = 'Is high quality important here or is a good solution absolutely critical? 
+						   (is this a case where it would not be acceptable having lots of equal alternatives?)';
+	public static $q2   = 'Is team commitment important to the decision?';
+	public static $q3	= 'Do you have enough information of your own to make a good decision?';
+	public static $q4   = 'Is the problem structured in such a way that it is clearly defined & organized 
+						   with potential solutions identified?';
+	public static $q5   = 'If you make this decision yourself, are you sure the group will accept and support it?';
+	public static $q6   = 'Does the team have the same organizational goals?';
+	public static $q7   = 'Is conflict amongst the team over the decision likely?';
 
 
 	public function getName(){
