@@ -5,7 +5,6 @@
 		{{ Form::radio('answer', 1, true); }}
 		{{ Form::label(0, 'No'); }}
 		{{ Form::radio('answer', 0); }}
-		{{ Form::hidden('q', $q); }}
 		{{ Form::submit('Next'); }}
 	{{ Form::close() }}
 </div>

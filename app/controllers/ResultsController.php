@@ -14,36 +14,17 @@ class ResultsController extends BaseController {
 			'g2' 		=> 'Group 2 (G2) - The group as a whole make the decision. You as the leader present the situation and the
 						group defines alternatives and reaches a consensus decision. The leader acts more as a facilitator in this
 						process and allows the group to agree on the final choice.',
-			'default' 	=> 'No outcome available.'
 	);
 
 
 	public function get_results(){
-		$track = Route::input('id');
+		$id = Route::input('id');
 		$responses = self::clean_results(Session::all());
-
-		switch($track){
-			case '6': $outcome = 'a1'; break;
-			case '9': $outcome = 'a1'; break;
-			case '14': $outcome = 'c2'; break;
-			case '15': $outcome = 'a2'; break;
-			case '19': $outcome = 'c2'; break;
-			case '21': $outcome = 'a1'; break;
-			case '22': $outcome = 'g2'; break;
-			case '23': $outcome = 'g2'; break;
-			case '24': $outcome = 'c2'; break;
-			case '26': $outcome = 'a2'; break;
-			case '28': $outcome = 'c1'; break;
-			case '29': $outcome = 'a2'; break;
-			case '30': $outcome = 'g2'; break;
-			case '31': $outcome = 'c2'; break;
-			default: $outcome = 'default'; break;
-		}
 
 		Session::flush();
 		return View::make('results', array(
 				'heading' =>  'Thank you! Your outcome is provided below',
-				'outcome' =>  self::$outcomes[$outcome],
+				'outcome' =>  self::$outcomes[$id],
                 'responses' => $responses
                ));
 	}

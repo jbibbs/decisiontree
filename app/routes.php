@@ -11,7 +11,7 @@
 |
 */
 
-Route::get('/', 'SurveyController@getName');
+Route::get('/', array('as' => 'name', 'before' => 'reset', 'uses' => 'SurveyController@get_question'));
 
 Route::get('question/{id}', "SurveyController@get_question");
 Route::post('question/{id}', "SurveyController@post_question");

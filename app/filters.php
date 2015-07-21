@@ -22,6 +22,14 @@ App::after(function($request, $response)
 	//
 });
 
+/**
+* Custom filter for destroying sessions when survey is reset
+*/
+
+Route::filter('reset', function(){
+	return Session::flush();
+});
+
 /*
 |--------------------------------------------------------------------------
 | Authentication Filters
