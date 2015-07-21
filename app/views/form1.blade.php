@@ -7,4 +7,5 @@
 		{{ Form::radio('answer', 0); }}
 		{{ Form::submit('Next'); }}
 	{{ Form::close() }}
+	{{ link_to($restart, 'Restart') }}
 </div>

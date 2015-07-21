@@ -5,4 +5,5 @@
 		{{ Form::text('answer'); }}
 		{{ Form::submit('Next'); }}
 	{{ Form::close() }}
+	{{ link_to($restart, 'Restart') }}
 </div>

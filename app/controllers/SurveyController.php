@@ -32,10 +32,12 @@ class SurveyController extends BaseController {
 		}
 
 		$question = self::$questions[$id];
+		$restart = route('name');
 		return View::make('survey')->nest('form', $form, 
 			array(
 				'question' 	=> $question,
 				'url' 		=> "question/$id",
+				'restart'   => $restart,
 			));
 	}
 

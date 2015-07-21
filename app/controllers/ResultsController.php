@@ -20,12 +20,12 @@ class ResultsController extends BaseController {
 	public function get_results(){
 		$id = Route::input('id');
 		$responses = self::clean_results(Session::all());
-
-		//Session::flush();
+		$restart = route('name');
 		return View::make('results', array(
 				'heading' =>  'Thank you! Your outcome is provided below',
 				'outcome' =>  self::$outcomes[$id],
-                'responses' => $responses
+                'responses' => $responses,
+                'restart' => $restart,
                ));
 	}
 

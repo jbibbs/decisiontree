@@ -18,5 +18,6 @@
         	@endif
         @endforeach
 	</div>
+        {{ link_to($restart, 'Restart') }}
 </body>
 </html>
