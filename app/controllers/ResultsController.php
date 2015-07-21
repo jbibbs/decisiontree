@@ -21,7 +21,7 @@ class ResultsController extends BaseController {
 		$id = Route::input('id');
 		$responses = self::clean_results(Session::all());
 
-		Session::flush();
+		//Session::flush();
 		return View::make('results', array(
 				'heading' =>  'Thank you! Your outcome is provided below',
 				'outcome' =>  self::$outcomes[$id],
