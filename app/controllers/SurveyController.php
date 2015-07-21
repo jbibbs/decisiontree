@@ -37,31 +37,31 @@ class SurveyController extends BaseController {
 			));
 	}
 
-	// I think it's confusing with each node identified uniquely
-	// Unless I'm mistaken you should be able to number the nodes beginning with #1 on each question 
-	// instead of a unique id for each node
+	// Handles the survey submissions
 	public function post_question($id){
 
 		// Get the user response or assign to NULL
-		if (Input::has('answer')){
-			$answer = Input::get('answer');
-		}
-		else {
-			$answer = 'Not provided';
-		}
-
+		$answer = Input::has('answer') ? Input::get('answer') : NULL;
 
 		switch($id){
 			case 'name':
 				Session::put('name', $answer);
 				return Redirect::to('question/1');
 			default:
-				Session::push('answers', $answer);
-				$answers = Session::get('answers');
+				Session::put('answers.q' . $id, $answer);
+				$answers = self::flatten();
 				$next = TracksController::get_next($answers);
 				return Redirect::to($next);
 		}
          
+	}
+
+	private function flatten(){
+		$answers = Session::get('answers');
+		foreach($answers as $answer){
+			$flat_array[] = $answer;
+		}
+		return $flat_array;
 	}
 
 }	

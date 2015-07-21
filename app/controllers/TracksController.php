@@ -4,9 +4,13 @@ class TracksController extends BaseController {
 
 
 
-// Defines all nodes in the decision tree. Each node contains a unique id
-// and a path that defines it's relationship to other nodes in the tree.
-// In this case, 1's are yes answers and 2's are no's.
+	/**
+	* Defines all nodes in the decision tree. 
+	*
+	* Each node contains a unique id and a path that defines 
+	* it's relationship to other nodes in the tree. In this case,
+	* 1's are yes answers and 0's are no's.
+	*/
 	public static $nodes = array(
 		array('id' => 1,  'next' => 'question/2', 'path' => '1'),
 		array('id' => 2,  'next' => 'question/2', 'path' => '0'),

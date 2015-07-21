@@ -20,7 +20,9 @@ class ResultsController extends BaseController {
 
 	public function get_results(){
 		$track = Route::input('id');
-		$responses = self::clean_results(Session::all());
+		//$responses = self::clean_results(Session::all());
+		$responses = Session::get('answers');
+		print_r($responses);
 
 		switch($track){
 			case '6': $outcome = 'a1'; break;
