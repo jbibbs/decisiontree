@@ -7,9 +7,7 @@
 
 		{{ $form }}
 		
-		{{ Form::open(array('url' => $restart, 'method' => 'get')) }}
-			{{ Form::submit('Noob') }}
-		{{ Form::close() }}
+		<button>{{ link_to($restart, 'Restart') }}</button>
 	</div>
 
 @stop

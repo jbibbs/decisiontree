@@ -11,6 +11,21 @@ footer {
 	padding: 10px;
 }
 
+.survey #form1 label{
+	display: inline;
+}
+
 .row {
 	/*background-color: #F2D3D3;*/
+}
+
+.results #outcome {
+	border: 1px solid #76684F;
+	/*background-color: #BEEB9F;*/
+	background-color: #C8EBC7;
+	padding: 14px 5px;
+}
+
+.responses p {
+	margin-bottom: 1.2rem;
 }

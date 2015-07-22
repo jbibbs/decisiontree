@@ -20,11 +20,11 @@ class SurveyController extends BaseController {
 	public static function get_question(){
 	    if('name' === Route::currentRouteName()){
 			$id = 0;
-			$form = 'form2';
+			$form = 'forms/form2';
 		}
 		elseif(Route::input('id')) {
 			$id = Route::input('id');
-			$form = 'form1';
+			$form = 'forms/form1';
 		}
 		else{
 			Log::error('Unable to get question. No question id was located.');
@@ -33,8 +33,8 @@ class SurveyController extends BaseController {
 
 		$question = self::$questions[$id];
 		$restart = route('name');
-		
-		return View::make('templates/survey', array('question' 	=> $question, 'restart'   => $restart,))
+
+		return View::make('survey', array('question' 	=> $question, 'restart'   => $restart))
 		->nest('form', $form, array('url' => "question/$id",));
 	}
 
@@ -59,7 +59,7 @@ class SurveyController extends BaseController {
 	}
 
 
-	public static function flatten(){
+	private static function flatten(){
 		$answers = Session::get('answers');
 		foreach($answers as $answer){
 			$flat_array[] = $answer;
