@@ -3,11 +3,15 @@
 @section('content')
 
 	<div class="survey">
-		<h4>{{ $question }}</h4>
+		<h5>{{ $question }}</h5>
 
 		{{ $form }}
 		
-		<button>{{ link_to($restart, 'Restart') }}</button>
+		{{ Form::open(array('url' => $restart, 'method' => 'get')) }}
+        	{{ Form::submit('Restart') }}
+    	{{ Form::close() }}
+
 	</div>
 
 @stop
+

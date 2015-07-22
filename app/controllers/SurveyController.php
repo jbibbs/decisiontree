@@ -3,7 +3,7 @@
 class SurveyController extends BaseController {
 
 	public static $questions = array(
-		0 => 'Please enter your name:',
+		//0 => 'Please enter your name:',
 		1 => 'Is high quality important here or is a good solution absolutely critical? 
 			     (is this a case where it would not be acceptable having lots of equal alternatives?)',
 	    2 => 'Is team commitment important to the decision?',
@@ -18,35 +18,38 @@ class SurveyController extends BaseController {
  	private static $total_questions = 7;
 
 	public static function get_question(){
-	    if('name' === Route::currentRouteName()){
+	   /* if('name' === Route::currentRouteName()){
 			$id = 0;
 			$form = 'forms/form2';
-		}
-		elseif(Route::input('id')) {
+		}*/
+		if(Route::input('id')) {
 			$id = Route::input('id');
-			$form = 'forms/form1';
 		}
-		else{
+		elseif('home' === Route::currentRouteName()) {
+			$id = 1;
+		}
+		else {
 			Log::error('Unable to get question. No question id was located.');
 			return Redirect::to('error');
 		}
-
+		$form = 'forms/form1';
 		$question = self::$questions[$id];
-		$restart = route('name');
+		$restart = route('home');
 
-		return View::make('survey', array('question' 	=> $question, 'restart'   => $restart))
-		->nest('form', $form, array('url' => "question/$id",));
+		return View::make('survey', array('question' => $question, 'restart' => $restart))
+			->nest('form', $form, array('url' => "question/$id",));
 	}
+
 
 	// Handles the survey submissions
 	public static function post_question($id){
 		// Get the user response or assign to NULL
 		$answer = Input::has('answer') ? Input::get('answer') : NULL;
 
-		if($id == 0){
+		/*if($id == 0){
 			Session::put('name', $answer);
 			return Redirect::to('question/1');
-		}
+		}*/
 		if($id > 0 && $id <= self::$total_questions){
 			Session::put('answers.' . $id, $answer);
 			$answers = self::flatten();

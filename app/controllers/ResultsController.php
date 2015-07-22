@@ -20,22 +20,30 @@ class ResultsController extends BaseController {
 	public function get_results(){
 		$id = Route::input('id');
 		$responses = self::clean_results(Session::all());
-		$restart = route('name');
-		return View::make('results', array(
-				'heading' =>  'Thank you! Your outcome is provided below',
-				'outcome' =>  self::$outcomes[$id],
-                'responses' => $responses,
-                'restart' => $restart,
-               ));
+		$answers = Session::get('answers');
+		$restart = route('home');
+
+		$submission = self::prepare_submission($id, $answers);
+		if(Submission::create_submission($submission)){
+
+			return View::make('results', array(
+					'heading' =>  'Thank you! Your outcome is provided below',
+					'outcome' =>  self::$outcomes[$id],
+	                'responses' => $responses,
+	                'restart' => $restart,
+	        ));
+	    }
+	    Log::error('Unable to create submission. Database insertion failed.');
+	    return Redirect::to('error');
 	}
 
 	private function clean_results($results){
 		$clean_results = array();
 		foreach($results as $key => $value){
-			if($key === 'name'){
+			/*if($key === 'name'){
 				$clean_results['name'] = $value;
-			}
-			elseif($key === 'answers'){
+			}*/
+			if($key === 'answers'){
 				foreach($value as $k => $v){
 					if($v == '1'){
 						$v = 'Yes';
@@ -51,6 +59,15 @@ class ResultsController extends BaseController {
 		return $clean_results;
 	}
 
+	private function prepare_submission($id, $responses){
+		$submission['outcome'] = self::$outcomes[$id];
+
+		foreach($responses as $question => $answer){
+			$submission['answer' . $question] = $answer;
+		}
+
+		return $submission;
+	}
 
 
 
