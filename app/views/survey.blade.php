@@ -7,9 +7,12 @@
 
 		{{ $form }}
 		
-		{{ Form::open(array('url' => $restart, 'method' => 'get')) }}
+	<!--	{{ Form::open(array('url' => $restart, 'method' => 'get')) }}
         	{{ Form::submit('Restart') }}
-    	{{ Form::close() }}
+    	{{ Form::close() }} -->
+	<span id="restart">
+    	{{ link_to($restart, 'Restart', $attributes = array(), $secure = null) }}
+    </span>
 
 	</div>
 

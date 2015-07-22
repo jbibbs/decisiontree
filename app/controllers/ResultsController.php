@@ -18,11 +18,20 @@ class ResultsController extends BaseController {
 
 
 	public function get_results(){
-		$id = Route::input('id');
-		$responses = self::clean_results(Session::all());
-		$answers = Session::get('answers');
-		$restart = route('home');
-
+		if(!$id = Route::input('id')){
+			Log::error('Unable to display results. Route ID not found.');
+	    	return Redirect::to('error');
+		}
+		if(!$answers = Session::get('answers')){
+			Log::error('Unable to display results. Unable to retreive answers from session.');
+	    	return Redirect::to('error');
+		}
+		if(!$restart = route('home')){
+			Log::error('Unable to assign the restart button to a route.');
+	    	return Redirect::to('error');
+		}
+		
+		$responses = self::clean_results($answers);
 		$submission = self::prepare_submission($id, $answers);
 		if(Submission::create_submission($submission)){
 
@@ -33,28 +42,22 @@ class ResultsController extends BaseController {
 	                'restart' => $restart,
 	        ));
 	    }
-	    Log::error('Unable to create submission. Database insertion failed.');
+
+	    Log::error('Unable to create submission. Database insertion failed');
 	    return Redirect::to('error');
 	}
 
 	private function clean_results($results){
 		$clean_results = array();
-		foreach($results as $key => $value){
-			/*if($key === 'name'){
-				$clean_results['name'] = $value;
-			}*/
-			if($key === 'answers'){
-				foreach($value as $k => $v){
-					if($v == '1'){
-						$v = 'Yes';
-					}
-					if($v == '0'){
-						$v = 'No';
-					}
-					$clean_results[SurveyController::$questions[$k]] = $v;
+			foreach($results as $k => $v){
+				if($v == '1'){
+					$v = 'Yes';
 				}
+				if($v == '0'){
+					$v = 'No';
+				}
+				$clean_results[SurveyController::$questions[$k]] = $v;
 			}
-		}
 		
 		return $clean_results;
 	}

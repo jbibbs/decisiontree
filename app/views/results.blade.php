@@ -1,7 +1,7 @@
 @extends('templates.default')
 
 @section('content')
-
+<div id="outcome">
     <div class="results">
     	<h4>{{ $heading }}</h4>
     	<p id="outcome"><strong>{{ $outcome }}</strong></p>
@@ -16,9 +16,11 @@
     		<p>{{{ $value }}}</p>
     	   @endif
          @endforeach
+    
+        <span id="restart">
+            {{ link_to($restart, 'Restart', $attributes = array(), $secure = null) }}
+        </span>
     </div>
-    {{ Form::open(array('url' => $restart, 'method' => 'get')) }}
-        {{ Form::submit('Restart') }}
-    {{ Form::close() }}
+</div>
 
 @stop

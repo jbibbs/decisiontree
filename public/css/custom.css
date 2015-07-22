@@ -6,7 +6,7 @@ footer {
 	border-top: 1px solid #000;
 }
 
-.survey {
+.survey, #outcome {
 	/*border: 1px solid #000;*/
 	padding: 10px;
 }
@@ -32,4 +32,33 @@ footer {
 
 .responses p {
 	margin-bottom: 1.2rem;
+}
+
+span#restart {
+	color: red;
+
+}
+
+span#restart a {
+  	color: red;
+  	padding: 0 25px;
+  	height: 30px;
+  	text-align: center;
+  	font-size: 11px;
+  	font-weight: 600;
+  	line-height: 30px;
+  	letter-spacing: .1rem;
+  	text-transform: uppercase;
+  	text-decoration: none;
+  	white-space: nowrap;
+  	background-color: transparent;
+  	border-radius: 4px;
+  	border: 1px solid #bbb;
+  	cursor: pointer;
+  	display: inline-block;
+  	box-sizing: border-box;
+}
+
+span#restart a:hover {
+  color: #0FA0CE; }
 }
