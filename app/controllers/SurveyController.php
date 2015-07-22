@@ -33,12 +33,9 @@ class SurveyController extends BaseController {
 
 		$question = self::$questions[$id];
 		$restart = route('name');
-		return View::make('templates/survey')->nest('form', $form, 
-			array(
-				'question' 	=> $question,
-				'url' 		=> "question/$id",
-				'restart'   => $restart,
-			));
+		
+		return View::make('templates/survey', array('question' 	=> $question, 'restart'   => $restart,))
+		->nest('form', $form, array('url' => "question/$id",));
 	}
 
 	// Handles the survey submissions

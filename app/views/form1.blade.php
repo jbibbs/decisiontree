@@ -1,4 +1,3 @@
-<h2>{{ $question }}</h2>
 <div>
 	{{ Form::open(array('url' => $url)) }}
 		{{ Form::label(1, 'Yes'); }}

@@ -1,0 +1,16 @@
+header {
+	border-bottom: 1px solid #000;
+}
+
+footer {
+	border-top: 1px solid #000;
+}
+
+.survey {
+	/*border: 1px solid #000;*/
+	padding: 10px;
+}
+
+.row {
+	/*background-color: #F2D3D3;*/
+}

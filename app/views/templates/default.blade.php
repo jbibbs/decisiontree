@@ -21,6 +21,7 @@
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
 	{{ HTML::style('css/normalize.css') }}
 	{{ HTML::style('css/skeleton.css') }}
+	{{ HTML::style('css/custom.css') }}
 
   <!-- Favicon
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
@@ -31,11 +32,13 @@
 
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
-  <header><h1>Vroom-Yetton-Jago Decision Model</h1></header>
+  <header>
+  	<div class="container"><h2>Vroom-Yetton-Jago Decision Model</h2></div>
+  </header>
 
   <div class="container">
     <div class="row">
-      <div class="one-half column" style="margin-top: 25%">
+      <div class="one.column column" style="margin-top: 8%">
         @yield('content')
     </div>
   </div>
