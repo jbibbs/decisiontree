@@ -5,8 +5,15 @@
 	<title>Decision Making Tree</title>
 </head>
 <body>
-	<div class="survey">
-		{{ $summary }}
+	<header>
+		<h1>Vroom-Yetton-Jago Decision Model</h1>
+	</header>
+	
+	<div id="main">
+		@yield('content')
 	</div>
+
+
+	<footer></footer>
 </body>
 </html>
