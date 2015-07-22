@@ -1,12 +1,9 @@
-<!doctype html>
-<html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<title>Decision Making Tree</title>
-</head>
-<body>
+@extends('templates.default')
+
+@section('content')
+
 	<div class="survey">
 		{{ $form }}
 	</div>
-</body>
-</html>
+
+@stop
