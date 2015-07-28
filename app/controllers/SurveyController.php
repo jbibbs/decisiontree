@@ -2,6 +2,12 @@
 
 class SurveyController extends BaseController {
 
+	/**
+	* Questions array
+	*
+	* These are the main questions asked during the survey
+	* The array index maps to the question number presented to the user.
+	*/
 	public static $questions = array(
 		//0 => 'Please enter your name:',
 		1 => 'Is high quality important here or is a good solution absolutely critical? 
@@ -15,8 +21,19 @@ class SurveyController extends BaseController {
 		7 => 'Is conflict amongst the team over the decision likely?',
 	);
 
+	/**
+	* Seems redundant since the qustions array can be counted, but there was
+	* a possibility we would use a "name" question to collect names. The DB allows for it.
+	* There was also a possibility other non-survey related questions would get added.
+	* This property fixes that potential problem.
+	*/
  	private static $total_questions = 7;
 
+
+ 	/**
+ 	* Displays the view
+ 	*
+ 	*/
 	public static function get_question(){
 	   /* if('name' === Route::currentRouteName()){
 			$id = 0;
@@ -41,7 +58,12 @@ class SurveyController extends BaseController {
 	}
 
 
-	// Handles the survey submissions
+	/**
+	* @id - integer or numeric string
+	*
+	* Collects the user submissions and stores in the session
+	* returns a redirect to the next step in the survey
+	*/
 	public static function post_question($id){
 		// Get the user response or assign to NULL
 		$answer = Input::has('answer') ? Input::get('answer') : NULL;
@@ -52,7 +74,7 @@ class SurveyController extends BaseController {
 		}*/
 		if($id > 0 && $id <= self::$total_questions){
 			Session::put('answers.' . $id, $answer);
-			$answers = self::flatten();
+			$answers = Session::get('answers');
 			$next = TracksController::get_next($answers);
 			return Redirect::to($next);
 		}
@@ -60,14 +82,4 @@ class SurveyController extends BaseController {
 		Log::error('Unable to process submitted question.  ID of: ' . $id . ' is not valid.');
 		return Redirect::to('error');
 	}
-
-
-	private static function flatten(){
-		$answers = Session::get('answers');
-		foreach($answers as $answer){
-			$flat_array[] = $answer;
-		}
-		return $flat_array;
-	}
-
-}	
+}

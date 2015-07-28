@@ -12,8 +12,12 @@
 */
 
 Route::get('/', array('as' => 'home', 'before' => 'reset', 'uses' => 'SurveyController@get_question'));
+
 Route::get('results/{id}', array('as' => 'results', 'after' => 'reset', 'uses' => 'ResultsController@get_results'));
+
 Route::get('question/{id}', "SurveyController@get_question");
+
 Route::get('error', function(){ return View::make('error'); });
+
 Route::post('question/{id}', "SurveyController@post_question");
 

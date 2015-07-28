@@ -2,7 +2,11 @@
 
 class ResultsController extends BaseController {
 
-
+	/**
+	* Main outcomes array
+	*
+	* Maps the outcome initial to the full statement. This is vroom yetton jago specific.
+	*/
 	public static $outcomes = array(
 			'a1' 		=> 'Autocratic 1 (A1) - You, the decision maker, use the information available to make the decision yourself.',
 			'a2'		=> 'Autocratic 2 (A2) - You request information from members of your team. They may or may not know why 
@@ -16,7 +20,12 @@ class ResultsController extends BaseController {
 						process and allows the group to agree on the final choice.',
 	);
 
-
+	/**
+	*  This function is responsible for displaying the results page.
+	*
+	* It first sends data to the model for insertion into database. 
+	* If inserted correctly, displays the results page.
+	*/
 	public function get_results(){
 		if(!$id = Route::input('id')){
 			Log::error('Unable to display results. Route ID not found.');
@@ -47,6 +56,15 @@ class ResultsController extends BaseController {
 	    return Redirect::to('error');
 	}
 
+	/**
+	* This helper function accepts an array that should have been gathered from session data.
+	*
+	* It maps the 1's and 0's provided through the user survey form to yesses and nos
+	* so that it is easier to read on the results page. 
+	*
+	* Why didn't we just accept yesses and nos through the survey? It was easier to work with the
+	* session array using integers. 
+	*/
 	private function clean_results($results){
 		$clean_results = array();
 			foreach($results as $k => $v){
@@ -62,6 +80,14 @@ class ResultsController extends BaseController {
 		return $clean_results;
 	}
 
+	/**
+	* @id - string
+	* @responses - array
+	*
+	* Prepares data for insertion into database by aligning user submissions to the db column names.
+	* We also save the full text of the outcome to the database and not just the acronym.
+    *
+	*/
 	private function prepare_submission($id, $responses){
 		$submission['outcome'] = self::$outcomes[$id];
 

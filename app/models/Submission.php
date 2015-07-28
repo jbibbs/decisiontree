@@ -3,9 +3,9 @@
 class Submission extends Eloquent {
 	
 	/**
-	* Expects an array argument
+	* @response - array
 	*
-	* Adds survey result data to the database
+	* Inserts the user submissions into the database
 	*/
 	public static function create_submission($response){
 		$submission = new Submission;
