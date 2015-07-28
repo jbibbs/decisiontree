@@ -24,7 +24,7 @@ class CreateAnswersTable extends Migration {
 				$table->string('answer5')->nullable();
 				$table->string('answer6')->nullable();
 				$table->string('answer7')->nullable();
-				$table->string('outcome');
+				$table->text('outcome');
 		        $table->timestamps();
 		    });
 	}
