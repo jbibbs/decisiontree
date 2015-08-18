@@ -33,7 +33,7 @@
   <!-- Primary Page Layout
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <header>
-  	<div class="container"><h2>Vroom-Yetton-Jago Decision Model</h2></div>
+  	<div class="container"><h2>Vroom-Jago Decision Model</h2></div>
   </header>
 
   <div class="container">
