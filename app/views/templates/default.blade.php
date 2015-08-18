@@ -5,7 +5,7 @@
   <!-- Basic Page Needs
   –––––––––––––––––––––––––––––––––––––––––––––––––– -->
   <meta charset="utf-8">
-  <title>Vroom-Yetton-Jago Decision Model</title>
+  <title>Vroom-Jago Decision Model</title>
   <meta name="description" content="">
   <meta name="author" content="">
 
