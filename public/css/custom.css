@@ -1,10 +1,12 @@
 header {
 	border-bottom: 1px solid #000;
+  background-color: #000;
+  color: #fff;
 }
 
 footer {
 	border-top: 1px solid #000;
-  margin-bottom: 75px;
+  margin-top: 4%;
 }
 
 .survey, #outcome {
@@ -63,5 +65,15 @@ span#restart a {
 }
 
 span#restart a:hover {
-  color: #0FA0CE; }
+  color: #0FA0CE; 
 }
+
+#headlow{
+  //background-color: #118BCE;
+  background-color: #7FB72B;
+  padding: 11px 0;
+  color: #000;
+}
+
+
+

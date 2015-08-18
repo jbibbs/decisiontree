@@ -8,17 +8,16 @@ class SurveyController extends BaseController {
 	* These are the main questions asked during the survey
 	* The array index maps to the question number presented to the user.
 	*/
+
+	//NEW
 	public static $questions = array(
-		//0 => 'Please enter your name:',
-		1 => 'Is high quality important here or is a good solution absolutely critical? 
-			     (is this a case where it would not be acceptable having lots of equal alternatives?)',
-	    2 => 'Is team commitment important to the decision?',
-	    3 => 'Do you have enough information of your own to make a good decision?',
-	    4 => 'Is the problem structured in such a way that it is clearly defined & organized 
-			     with potential solutions identified?',
-		5 => 'If you make this decision yourself, are you sure the group will accept and support it?',
-		6 => 'Does the team have the same organizational goals?',
-		7 => 'Is conflict amongst the team over the decision likely?',
+		1 => 'Is the technical quality of the decision very important? Meaning, are the consequences of failure significant?',
+	    2 => 'Does a successful outcome depend on your team members\' commitment to the decision? (Must there be buy-in for the solution to work?)',
+	    3 => 'Do you have sufficient information to be able to make the decision on your own?',
+	    4 => 'Is the problem well-structured so that you can easily understand what needs to be addressed and what defines a good solution?',
+		5 => 'Are you reasonably sure that your team will accept your decision even if you make it yourself?',
+		6 => 'Are the goals of the team consistent with the goals the organization has set to define a successful solution?',
+		7 => 'Will there likely be conflict among the team as to which solution is best?',
 	);
 
 	/**
