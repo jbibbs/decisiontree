@@ -75,6 +75,10 @@ span#restart a:hover {
   color: #000;
 }
 
+#headlow .upper {
+  border-bottom: 1px solid #fff;
+  padding-bottom: 12px;
+}
 
 
 
