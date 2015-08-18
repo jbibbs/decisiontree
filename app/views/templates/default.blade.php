@@ -36,7 +36,7 @@
   	<div class="container"><h2>Vroom-Jago Decision Model</h2></div>
     <div id="headlow">
         <div class="container">
-          <p>No one leadership style or decision making process fits all situations. By analyzing the situation and evaluating the problem based on time, team buy-in, and decision quality, a conclusion about which style best fits the situation can be made. This model defines a very logical approach to which style to adopt when trying to balance the benefits of participative management with the need to make decisions effectively.</p>
+          <p style="border-bottom: 1px solid #fff; padding-bottom: 12px;">No one leadership style or decision making process fits all situations. By analyzing the situation and evaluating the problem based on time, team buy-in, and decision quality, a conclusion about which style best fits the situation can be made. This model defines a very logical approach to which style to adopt when trying to balance the benefits of participative management with the need to make decisions effectively.</p>
           <p>This is a useful model in new situations, or in ones which have unusual characteristics. Using it, you'll quickly get an feel for the right approach to use in more usual circumstances.
         </p>
         </div>
